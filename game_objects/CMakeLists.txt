@@ -5,4 +5,4 @@ add_library(game_objects
 )
 
 target_include_directories(game_objects PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(game_objects PUBLIC graphics)
+target_link_libraries(game_objects PUBLIC graphics utils)

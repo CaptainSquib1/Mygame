@@ -1,7 +1,7 @@
 #include "game.h"
 
 Game::Game(std::string title, int width, int height)
-    : graphics{title, width, height} {
+    : graphics{title, width, height} , dt{1.0/60.0}, lag{0.0}, performance_frequency{SDL_GetPerformanceFrequency()}, prev_counter{SDL_GetPerformanceCounter()} {
 
     // load the first "level"
     world.add_platform(320, 500, 512, 64);
@@ -13,7 +13,13 @@ void Game::input() {
 }
 
 void Game::update() {
-    world.update();
+    Uint64 now = SDL_GetPerformanceCounter();
+    lag += (now - prev_counter) / (double)performance_frequency;
+    prev_counter = now;
+    while (lag >= dt) {
+        world.update();
+        lag -= dt;
+    }
 }
 
 void Game::render() {

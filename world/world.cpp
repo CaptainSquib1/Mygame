@@ -2,6 +2,7 @@
 #include <SDL3/SDL_rect.h>
 #include <algorithm>
 #include "player.h"
+#include "vec.h"
 
 void World::add_platform(float x, float y, float width, float height) {
     SDL_FRect rect{x, y, width, height};
@@ -18,19 +19,20 @@ bool World::has_any_collisions(const SDL_FRect& box) const {
 }
 
 Player* World::create_player() {
-    player = std::make_unique<Player>(600, 300, 64);
+    player = std::make_unique<Player>(Vec<float>{600, 300}, Vec<float>{16,16});
     return player.get();
 }
 
 void World::update() {
     // currently only updating player
-    SDL_FRect future = player->bounding_box;
-    future.x += player->vx;
-    future.y += player->vy;
+    SDL_FRect future{player->position.x, player->position.y, player->size.x,player->size.y};
+    future.x += player->velocity.x;
+    future.y += player->velocity.y;
 
     //check for collisions with world
     if (!has_any_collisions(future)) {
-        player->bounding_box = future;
+        player->position.x = future.x;
+        player->position.y = future.y;
     }
 }
 
