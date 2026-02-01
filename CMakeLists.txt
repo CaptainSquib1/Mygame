@@ -1,0 +1,58 @@
+cmake_minimum_required(VERSION 3.24)
+
+project(MEgame)
+
+set(CMAKE_CXX_STANDARD 20)
+add_compile_options(-g -Wall -Wextra -pedantic)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(BUILD_SHARED_LIBS ON)
+
+# On Windows, create dll's in the same directory as the game executable
+if (WIN32)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+endif()
+
+include(FetchContent)
+set(FETCHCONTENT_QUIET FALSE)
+
+FetchContent_Declare(
+        SDL
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+        GIT_TAG release-3.4.0
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        OVERRIDE_FIND_PACKAGE
+)
+
+FetchContent_Declare(
+        SDL_mixer
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_mixer.git
+        GIT_TAG main
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        OVERRIDE_FIND_PACKAGE
+)
+# disable formats we don't use to make the build faster and smaller
+set(SDLMIXER_MIDI_NATIVE OFF)
+set(SDLMIXER_GME OFF)
+set(SDLMIXER_WAVPACK OFF)
+set(SDLMIXER_MOD OFF)
+set(SDLMIXER_OPUS OFF)
+
+
+
+# FetchContent_MakeAvailable(SDL SDL_mixer SDL_image)
+FetchContent_MakeAvailable(SDL SDL_mixer)
+
+add_subdirectory(graphics)
+add_subdirectory(world)
+add_subdirectory(game_objects)
+
+add_library(game_lib
+        game.cpp game.h)
+
+target_link_libraries(game_lib PUBLIC SDL3::SDL3 graphics world game_objects)
+add_executable(game main.cpp)
+
+target_link_libraries(game PUBLIC game_lib)
