@@ -26,7 +26,7 @@ Vec<float> Camera::world_to_screen(const Vec<float> &world_position) const {
 }
 void Camera::update(const Vec<float> &new_location, float dt) {
     goal = new_location;
-    acceleration = (goal - location) * (float)42;
+    acceleration = (goal - location) * (float)20; // change val for camera speed
 
     velocity += 0.5f * acceleration * dt;
     location += velocity * dt;
