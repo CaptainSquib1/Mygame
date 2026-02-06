@@ -31,7 +31,7 @@ void Player::handle_input() {
         //velocity.x += +8;
         acceleration.x += walk_acceleration;
     }
-    if (key_states[SDL_SCANCODE_SPACE]) {
+    if (key_states[SDL_SCANCODE_SPACE] && velocity.y >= 0) {
         velocity.y = jump_velocity;
     }
 
