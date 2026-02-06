@@ -10,7 +10,7 @@ public:
     Player(const Vec<float>& position, const Vec<float>& size);
     void handle_input();
     void update();
-    std::pair<SDL_FRect, Color> get_sprite() const;
+    std::pair<Vec<float>, Color> get_sprite() const;
 
 // data
     Vec<float> position;

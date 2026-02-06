@@ -1,7 +1,7 @@
 project(world)
 
 add_library(world
-        world.cpp world.h
+        world.cpp world.h tilemap.cpp tilemap.h camera.cpp camera.h
 )
 
 target_include_directories(world PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

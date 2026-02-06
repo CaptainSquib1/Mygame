@@ -1,4 +1,5 @@
 #pragma once
+#include "camera.h"
 #include "player.h"
 #include "world.h"
 
@@ -15,8 +16,9 @@ private:
     Graphics graphics;
 
     // timing
-    double dt;
+    float dt;
     Uint64 performance_frequency;
     Uint64 prev_counter;
-    double lag;
+    float lag;
+    Camera camera;
 };
