@@ -14,11 +14,13 @@ Game::Game(std::string title, int width, int height)
     world.add_platform(3,7,4,1);
     world.add_platform(13,4,6,1);
 
-    player = world.create_player();
+    game_object = world.create_player();
+    camera.set_location(game_object->physics.position);
 }
 
 void Game::input() {
-    player->handle_input();
+    game_object->input(world);
+    camera.handle_input();
 }
 
 void Game::update() {
@@ -27,7 +29,10 @@ void Game::update() {
     prev_counter = now;
     while (lag >= dt) {
         world.update(dt);
-        camera.update(player->position, dt);
+        //put camera slightly ahead of player
+        float L = length(game_object->physics.velocity);
+        Vec displacement = 8.0f * game_object->physics.velocity / (1.0f + L); // change first float for distance ahead
+        camera.update(game_object->physics.position + displacement, dt);
         lag -= dt;
     }
 }
@@ -41,7 +46,7 @@ void Game::render() {
     camera.render(world.tilemap);
 
     //draw player
-    auto [player_position, color] = player->get_sprite();
+    auto [player_position, color] = game_object->get_sprite();
     camera.render(player_position, color);
 
     //update

@@ -17,10 +17,15 @@ void Graphics::clear() {
     SDL_RenderClear(renderer);
 }
 
-void Graphics::draw(const SDL_FRect& rect, const Color& color) {
+void Graphics::draw(const SDL_FRect& rect, const Color& color, bool filled) {
     auto [red, green, blue, alpha] = color;
     SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
-    SDL_RenderFillRect(renderer, &rect);
+    if (filled) {
+        SDL_RenderFillRect(renderer, &rect);
+    }
+    else {
+        SDL_RenderRect(renderer, &rect);
+    }
 }
 
 void Graphics::update() {

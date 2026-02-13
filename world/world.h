@@ -6,18 +6,20 @@
 #include "tilemap.h"
 #include "vec.h"
 
-class Player;
+
+class GameObject;
 
 class World {
 public:
     World(int width, int height);
 
     void add_platform(float x, float y, float width, float height);
+    void move_to(Vec<float>& position, const Vec<int>& size, Vec<float>& velocity);
     bool collides(const Vec<float>& position) const;
-    Player* create_player();
+    GameObject* create_player();
     void update(float dt);
 
     Tilemap tilemap;
 private:
-    std::unique_ptr<Player> player;
+    std::unique_ptr<GameObject> game_object;
 };

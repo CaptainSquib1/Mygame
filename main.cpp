@@ -9,7 +9,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
-    auto game = new Game("Yay Game Worke (or not)", 1920, 1080);
+    auto game = new Game("Collisions are really annoying ohyeah gonna rock and roll", 1920, 1080);
     *appstate = game;
 
     return SDL_APP_CONTINUE;

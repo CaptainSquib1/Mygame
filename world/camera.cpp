@@ -7,6 +7,12 @@ Camera::Camera(Graphics &graphics, float tilesize)
     calculate_visible_tiles();
 }
 
+void Camera::handle_input() {
+    const bool *key_states = SDL_GetKeyboardState(NULL);
+    if (key_states[SDL_SCANCODE_G]) {
+        grid_toggle.flip();
+    }
+}
 void Camera::calculate_visible_tiles() {
     Vec<int> num_tiles = Vec{graphics.width, graphics.height} / (2 * static_cast<int>(tilesize)) + Vec{1,1};
     Vec<int> center{static_cast<int>(location.x), static_cast<int>(location.y)};
@@ -24,15 +30,22 @@ Vec<float> Camera::world_to_screen(const Vec<float> &world_position) const {
 
     return pixel;
 }
+
+void Camera::set_location(const Vec<float>& new_location) {
+    location = new_location;
+    calculate_visible_tiles();
+}
+
 void Camera::update(const Vec<float> &new_location, float dt) {
     goal = new_location;
-    acceleration = (goal - location) * (float)20; // change val for camera speed
+    physics.acceleration = (goal - location) * 10.0f;
 
-    velocity += 0.5f * acceleration * dt;
-    location += velocity * dt;
 
-    velocity += 0.5f * acceleration * dt;
-    velocity *= {damping,damping};
+    physics.velocity += 0.5f * physics.acceleration * dt;
+    location += physics.velocity * dt;
+
+    physics.velocity += 0.5f * physics.acceleration * dt;
+    physics.velocity *= {physics.damping,physics.damping};
 
     calculate_visible_tiles();
 }
@@ -41,7 +54,7 @@ void Camera::render(const Vec<float> &position, const Color &color, bool filled)
     Vec<float> pixel = world_to_screen(position);
     pixel -= Vec{tilesize/2,tilesize/2}; //center on tile
     SDL_FRect rect{pixel.x,pixel.y,tilesize,tilesize};
-    graphics.draw(rect, color);
+    graphics.draw(rect, color, filled);
 }
 
 void Camera::render(const Tilemap &tilemap) const {
@@ -51,17 +64,20 @@ void Camera::render(const Tilemap &tilemap) const {
     int ymax = std::min(visible_max.y, tilemap.height - 1);
 
     //draw tiles
-    for (int y = ymin; y<=ymax; ++y) {
-        for (int x = xmin; x<=xmax; ++x) {
-            const Tile& tile = tilemap(x,y);
-            Vec<float> position{static_cast<float>(x),static_cast<float>(y)};
-
+    // draw grid
+    for (int y = ymin; y <= ymax; ++y) {
+        for (int x = xmin; x <= xmax; ++x) {
+            const Tile& tile = tilemap(x, y);
+            Vec<float> position{static_cast<float>(x), static_cast<float>(y)};
             if (tile == Tile::Platform) {
-                render(position, {0, 255,0,255});
+                render(position, {0, 255, 0, 255});
             }
-            else{
-                render(position, {0,127,127,255});
-        }
+            else {
+                render(position, {0, 127, 127, 255});
+            }
+            if (grid_toggle.on) {
+                render(position, {0, 0, 0, 255}, false);
+            }
         }
     }
 }

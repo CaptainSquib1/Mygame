@@ -1,8 +1,9 @@
 Main - Calls game to start and render through game.cpp and SDL.
 Camera - Handles pixel to tile translation for itself, creates camera and contains camera settings
-Game - Calls world to create platforms, handle player input, and rendering
+Game - Calls world to create platforms, handle player input, rendering, and camera positioning
 Physics - .h file holds the keys to the universe
 Graphics - Through which all things are rendered
 Tilemap - Creates tilemap of tiles, oob error handling, and clears tile "board"
 Vec - Creates Vec template
-Player - Creates Player class and handles keybinds
+GameObject - Creates GameObjects class and handles inputs
+Toggle - Handles toggled inputs

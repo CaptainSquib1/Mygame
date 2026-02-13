@@ -89,9 +89,14 @@ bool operator!=(const Vec<T>& left, const Vec<T>& right) {
 }
 
 template <typename T>
-double distance(const Vec<T>& a, const Vec<T>& b) {
+float distance(const Vec<T>& a, const Vec<T>& b) {
     Vec difference = a - b;
-    return std::sqrt(std::pow(difference.x, 2) + std::pow(difference.y, 2));
+    return length(difference);
+}
+
+template <typename T>
+float length(const Vec<T>& v) {
+    return std::sqrt(v.x*v.x + v.y*v.y);
 }
 
 template <typename T>
