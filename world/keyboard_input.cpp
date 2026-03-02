@@ -10,7 +10,7 @@ void KeyboardInput::get_input() {
         if (key_states[SDL_SCANCODE_LALT]) {
             next_action_type = ActionType::DashLeft;
         }
-        if (key_states[SDL_SCANCODE_LSHIFT]) {
+        else if (key_states[SDL_SCANCODE_LSHIFT]) {
             next_action_type = ActionType::SwingLeft;
         }
         else {
@@ -22,7 +22,7 @@ void KeyboardInput::get_input() {
         if (key_states[SDL_SCANCODE_LALT]) {
             next_action_type = ActionType::DashRight;
         }
-        if (key_states[SDL_SCANCODE_LSHIFT]) {
+        else if (key_states[SDL_SCANCODE_LSHIFT]) {
             next_action_type = ActionType::SwingRight;
         }
         else {
