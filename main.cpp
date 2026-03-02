@@ -9,7 +9,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
         return SDL_APP_FAILURE;
     }
 
-    auto game = new Game("Collisions are really annoying ohyeah gonna rock and roll", 1920, 1080);
+    auto game = new Game("Yay Game Worke", 1920, 1080);
     *appstate = game;
 
     return SDL_APP_CONTINUE;
@@ -19,6 +19,9 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
     }
+
+    auto game = static_cast<Game*>(appstate);
+    game->handle_event(event);
 
     return SDL_APP_CONTINUE;
 }

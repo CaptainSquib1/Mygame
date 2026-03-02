@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(Mygame)
+project(class-game)
 
 set(CMAKE_CXX_STANDARD 20)
 add_compile_options(-g -Wall -Wextra -pedantic)
@@ -51,7 +51,8 @@ add_subdirectory(world)
 
 
 add_library(game_lib
-        game.cpp game.h)
+        game.cpp game.h
+        asset_manager.cpp asset_manager.h)
 
 target_link_libraries(game_lib PUBLIC SDL3::SDL3 graphics utils world)
 add_executable(game main.cpp)

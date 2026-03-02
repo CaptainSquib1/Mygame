@@ -15,6 +15,7 @@ public:
     float gravity{-30.0f};
     float damping{0.9f};
     float walk_acceleration{30.0f};
-    float jump_velocity{5.0f};
+    float jump_velocity{10.0f};
     float terminal_velocity{15.0f};
+    float dashing_velocity{20.0f};
     };
