@@ -89,7 +89,7 @@ Action *InAir::input(World &world, GameObject &obj, ActionType action_type) {
 }
 // Walking
 void Walking::on_enter(World &, GameObject & obj) {
-    obj.color = {255,255,0,255};
+    obj.color = {0,255,0,255};
 }
 
 Action* Walking::input(World& world, GameObject& obj, ActionType action_type) {
@@ -129,7 +129,7 @@ Action * Dashing::input(World &world, GameObject &obj, ActionType action_type) {
 // Swinging
 void Swinging::on_enter(World &, GameObject &obj) {
 
-    obj.color ={255, 255, 0, 255};
+    obj.color ={200, 200, 0, 255};
 }
 Action *Swinging::input(World &world, GameObject &obj, ActionType action_type) {
 
