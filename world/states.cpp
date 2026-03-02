@@ -1,0 +1,161 @@
+#include "states.h"
+#include "action.h"
+#include "game_object.h"
+
+
+
+// helper function
+bool on_platform(World& world, GameObject& obj) {
+    constexpr float epsilon = 1e-4;
+    Vec<float> left_foot{obj.physics.position.x + epsilon, obj.physics.position.y - epsilon};
+    Vec<float> right_foot{obj.physics.position.x + obj.size.x - epsilon, obj.physics.position.y - epsilon};
+    return world.collides(left_foot) || world.collides(right_foot);
+}
+
+
+//////////////
+///Standing
+//////////////
+void Standing::on_enter(World &, GameObject & obj) {
+    obj.color = {255,0,0,255};
+    obj.physics.acceleration.x = 0;
+}
+
+Action *Standing::input(World& world, GameObject& obj, ActionType action_type) {
+    if (action_type == ActionType::Jump) {
+        obj.fsm->transition(Transition::Jump, world,obj);
+        return new Jump();
+    }
+    if (action_type == ActionType::MoveLeft) {
+        obj.fsm->transition(Transition::Move,world,obj);
+        return new MoveLeft();
+    }
+    if (action_type == ActionType::MoveRight) {
+        obj.fsm->transition(Transition::Move,world,obj);
+        return new MoveRight();
+    }
+    if (action_type == ActionType::DashLeft) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+        return new DashLeft();
+    }
+    if (action_type == ActionType::DashRight) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+        return new DashRight();
+    }
+    return nullptr;
+}
+// In Air
+void InAir::on_enter(World &world, GameObject &obj) {
+    elapsed = cooldown;
+    obj.color = {0,0,255,255};
+}
+
+void InAir::update(World &world, GameObject &obj, double dt) {
+    elapsed -= dt;
+    if (elapsed <= 0 && on_platform(world, obj)) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+}
+
+Action *InAir::input(World &world, GameObject &obj, ActionType action_type) {
+    if (action_type == ActionType::None) {
+        return nullptr;
+    }
+    if (action_type == ActionType::MoveLeft) {
+        obj.fsm->transition(Transition::Move,world,obj);
+        return new MoveLeft();
+    }
+    if (action_type == ActionType::MoveRight) {
+        obj.fsm->transition(Transition::Move,world,obj);
+        return new MoveRight();
+    }
+    if (action_type == ActionType::DashLeft) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+        return new DashLeft();
+    }
+    if (action_type == ActionType::DashRight) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+        return new DashRight();
+    }
+    if (action_type == ActionType::SwingLeft) {
+        obj.fsm->transition(Transition::Swing,world,obj);
+        return new SwingLeft();
+    }
+    if (action_type == ActionType::SwingRight) {
+        obj.fsm->transition(Transition::Swing,world,obj);
+        return new SwingRight();
+    }
+    return nullptr;
+}
+// Walking
+void Walking::on_enter(World &, GameObject & obj) {
+    obj.color = {255,255,0,255};
+}
+
+Action* Walking::input(World& world, GameObject& obj, ActionType action_type) {
+    if (action_type == ActionType::None) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+    if (action_type == ActionType::Jump) {
+        obj.fsm->transition(Transition::Jump, world, obj);
+        return new Jump();
+    }
+    if (action_type == ActionType::DashLeft) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+        return new DashLeft();
+    }
+    if (action_type == ActionType::DashRight) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+        return new DashRight();
+    }
+    return nullptr;
+}
+// Dashing
+void Dashing::on_enter(World &world, GameObject &obj) {
+
+    obj.color = {255,0, 255, 255};
+}
+
+Action * Dashing::input(World &world, GameObject &obj, ActionType action_type) {
+
+    if (action_type == ActionType::None) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+
+    return nullptr;
+
+}
+
+// Swinging
+void Swinging::on_enter(World &, GameObject &obj) {
+
+    obj.color ={255, 255, 0, 255};
+}
+Action *Swinging::input(World &world, GameObject &obj, ActionType action_type) {
+
+    if (action_type == ActionType::None) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+    if (action_type == ActionType::DashLeft) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+    }
+    if (action_type == ActionType::DashRight) {
+        obj.fsm->transition(Transition::Dash,world,obj);
+    }
+    return nullptr;
+}
+
+//Crouching
+void Crouching::on_enter(World &, GameObject & obj) {
+    // TODO:
+    obj.color ={};
+}
+Action *Crouching::input(World &, GameObject &, ActionType) {
+    // TODO:
+}
+
+
+
+// enum class StateType {Standing,InAir,Walking,Dashing,Swinging,Crouching};
+// enum class Transition {Jump,Stop,Move,Dash,Swing,Crouch};
+

@@ -2,9 +2,12 @@
 #include <SDL3/SDL_rect.h>
 #include <algorithm>
 #include "game_object.h"
+#include "fsm.h"
+#include "states.h"
 
 #include "vec.h"
 #include "physics.h"
+#include "keyboard_input.h"
 
 World::World(int width, int height)
     : tilemap{width, height}  {
@@ -25,7 +28,8 @@ void World::move_to(Vec<float> &position, const Vec<int> &size, Vec<float> &velo
     Vec<float> topRight = {position.x + size.x, position.y + size.y};
     Vec<float> topLeft = {position.x, position.y + size.y};
 
-    if (collides(topRight) && collides(topLeft)) {
+    Vec<float> topmiddle = {topLeft.x + .5f, topLeft.y};
+    if ((collides(topRight) && collides(topLeft)) || collides(topmiddle)) {
         position.y = floor(position.y);
         velocity.y = 0;
     }
@@ -33,7 +37,8 @@ void World::move_to(Vec<float> &position, const Vec<int> &size, Vec<float> &velo
 
     Vec<float> bottomRight = {position.x + size.x, position.y};
     Vec<float> bottomLeft = position;
-    if (collides(bottomRight) && collides(bottomLeft)) {
+    Vec<float> bottommiddle = {bottomLeft.x + .5f, bottomLeft.y};
+    if ((collides(bottomRight) && collides(bottomLeft)) || collides(bottommiddle)) {
         position.y = ceil(position.y);
         velocity.y = 0;
     }
@@ -41,13 +46,13 @@ void World::move_to(Vec<float> &position, const Vec<int> &size, Vec<float> &velo
 
     // then test for collisions on the left and right sides
 
-
-    if (collides(topLeft) && collides(bottomLeft)) {
+    Vec<float> leftmiddle = {bottomLeft.x,bottomLeft.y + .5f};
+    if ((collides(topLeft) && collides(bottomLeft)) || collides(leftmiddle)) {
         position.x = ceil(position.x);
         velocity.x = 0;
     }
-
-    if (collides(topRight) && collides(bottomRight)) {
+    Vec<float> rightmiddle = {bottomRight.x, bottomRight.y + .5f};
+    if ((collides(topRight) && collides(bottomRight)) || collides(rightmiddle)) {
         position.x = floor(position.x);
         velocity.x = 0;
     }
@@ -111,34 +116,72 @@ bool World::collides(const Vec<float>& position) const {
 }
 
 GameObject* World::create_player() {
-    game_object = std::make_unique<GameObject>(Vec<float>{10, 5}, Vec<int>{1, 1}, *this);
+    // Create FSM
+    Transitions transitions = {
+        // Standing to "Something"
+        {{StateType::Standing, Transition::Crouch}, StateType::Crouching},
+        {{StateType::Standing, Transition::Jump}, StateType::InAir},
+        {{StateType::Standing, Transition::Move}, StateType::Walking},
+        // Walking to "Something"
+        {{StateType::Walking, Transition::Stop}, StateType::Standing},
+        {{StateType::Walking, Transition::Crouch}, StateType::Crouching},
+        {{StateType::Walking, Transition::Jump}, StateType::InAir},
+        {{StateType::Walking, Transition::Dash}, StateType::Dashing},
+        // InAir to "Something"
+        {{StateType::InAir, Transition::Stop}, StateType::Standing},
+        {{StateType::InAir, Transition::Swing}, StateType::Swinging},
+        {{StateType::InAir, Transition::Dash}, StateType::Dashing},
+        // Swinging to "Something"
+        {{StateType::Swinging, Transition::Stop}, StateType::InAir},
+        {{StateType::Swinging, Transition::Dash}, StateType::Dashing},
+        // Dashing to "Something"
+        {{StateType::Dashing,Transition::Stop},StateType::Walking},
+        // Crouching to "Something"
+        {{StateType::Crouching, Transition::Stop}, StateType::Standing},
+        {{StateType::Crouching, Transition::Jump}, StateType::InAir},
+    };
+    States states = {
+        {StateType::Standing, new Standing()},
+        {StateType::InAir, new InAir()},
+        {StateType::Walking, new Walking()},
+        {StateType::Dashing, new Dashing()},
+        {StateType::Crouching, new Crouching()},
+        {StateType::Swinging, new Swinging()},
+    };
+    FSM* fsm = new FSM(transitions, states, StateType::Standing);
 
-    return game_object.get();
+    //player input
+    KeyboardInput* input = new KeyboardInput;
+
+
+    player = std::make_unique<GameObject>(Vec<float>{10, 5}, Vec<int>{1, 1}, *this, fsm, input, Color{255,255,0,255});
+
+    return player.get();
 }
 
 void World::update(float dt) {
     // currently only updating player
-    auto position = game_object->physics.position;
-    auto velocity = game_object->physics.velocity;
-    auto acceleration = game_object->physics.acceleration;
+    auto position = player->physics.position;
+    auto velocity = player->physics.velocity;
+    auto acceleration = player->physics.acceleration;
 
     velocity += 0.5f * acceleration * dt;
     position += velocity * dt;
     velocity += 0.5f * acceleration * dt;
-    velocity.x *= game_object->physics.damping;
-    velocity.x = std::clamp(velocity.x, -game_object->physics.terminal_velocity, game_object->physics.terminal_velocity);
-    velocity.y = std::clamp(velocity.y, -game_object->physics.terminal_velocity, game_object->physics.terminal_velocity);
+    velocity.x *= player->physics.damping;
+    velocity.x = std::clamp(velocity.x, -player->physics.terminal_velocity, player->physics.terminal_velocity);
+    velocity.y = std::clamp(velocity.y, -player->physics.terminal_velocity, player->physics.terminal_velocity);
 
     // check for collisions in the world - x direction
-    Vec<float> future_position{position.x, game_object->physics.position.y};
+    Vec<float> future_position{position.x, player->physics.position.y};
     Vec<float> future_velocity{velocity.x, 0};
-    move_to(future_position, game_object->size, future_velocity);
+    move_to(future_position, player->size, future_velocity);
     // now y direction after (maybe) moving in x
     future_velocity.y = velocity.y;
     future_position.y = position.y;
-    move_to(future_position, game_object->size, future_velocity);
+    move_to(future_position, player->size, future_velocity);
     // update the player position and velocity
-    game_object->physics.velocity = future_velocity;
-    game_object->physics.position = future_position;
+    player->physics.velocity = future_velocity;
+    player->physics.position = future_position;
 }
 

@@ -21,5 +21,5 @@ public:
 
     Tilemap tilemap;
 private:
-    std::unique_ptr<GameObject> game_object;
+    std::unique_ptr<GameObject> player;
 };

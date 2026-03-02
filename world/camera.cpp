@@ -1,4 +1,6 @@
 #include "camera.h"
+
+#include "game_object.h"
 #include "graphics.h"
 #include "physics.h"
 
@@ -32,7 +34,7 @@ Vec<float> Camera::world_to_screen(const Vec<float> &world_position) const {
 }
 
 void Camera::set_location(const Vec<float>& new_location) {
-    location = new_location;
+    physics.position = new_location;
     calculate_visible_tiles();
 }
 
@@ -80,4 +82,15 @@ void Camera::render(const Tilemap &tilemap) const {
             }
         }
     }
+}
+
+void Camera::render(const Vec<float> &position, const Sprite &sprite) const {
+    Vec<float> pixel = world_to_screen(position);
+    pixel.y += tilesize/2;
+    graphics.draw_sprite(pixel,sprite);
+}
+
+void Camera::render(const GameObject &obj) const {
+    render(obj.physics.position, obj.color); //square
+    render(obj.physics.position, obj.sprite);
 }
