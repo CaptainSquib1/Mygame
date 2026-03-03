@@ -19,8 +19,8 @@ void DashLeft::perform(World&, GameObject& obj) {
     obj.physics.velocity.x += -obj.physics.dashing_velocity;
 }
 
-void Crouch::perform(World &, GameObject &obj) {
-   //TODO:
+void Crouch::perform(World&, GameObject& obj) {
+    // TODO:
 }
 void SwingRight::perform(World&, GameObject& obj) {
     obj.physics.velocity.x += obj.physics.dashing_velocity;

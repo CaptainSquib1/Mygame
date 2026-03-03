@@ -31,6 +31,9 @@ class Swinging: public State {
     public:
     void on_enter(World &, GameObject &) override;
     Action* input(World &, GameObject &, ActionType) override;
+    void update(World &, GameObject &, double dt) override;
+    const double cooldown = .1;
+    double elapsed = 0;
 
 };
 class Dashing: public State {
@@ -44,5 +47,6 @@ class Crouching: public State {
     public:
     void on_enter(World &, GameObject &) override;
     Action* input(World &, GameObject &, ActionType) override;
+    void on_exit(World &, GameObject &) override;
 
 };

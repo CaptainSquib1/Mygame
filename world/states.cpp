@@ -26,6 +26,10 @@ Action *Standing::input(World& world, GameObject& obj, ActionType action_type) {
         obj.fsm->transition(Transition::Jump, world,obj);
         return new Jump();
     }
+    if (action_type == ActionType::Crouch) {
+        obj.fsm->transition(Transition::Crouch, world, obj);
+        return new Crouch();
+    }
     if (action_type == ActionType::MoveLeft) {
         obj.fsm->transition(Transition::Move,world,obj);
         return new MoveLeft();
@@ -100,6 +104,10 @@ Action* Walking::input(World& world, GameObject& obj, ActionType action_type) {
         obj.fsm->transition(Transition::Jump, world, obj);
         return new Jump();
     }
+    if (action_type == ActionType::Crouch) {
+        obj.fsm->transition(Transition::Crouch, world, obj);
+        return new Crouch();
+    }
     if (action_type == ActionType::DashLeft) {
         obj.fsm->transition(Transition::Dash,world,obj);
         return new DashLeft();
@@ -117,23 +125,29 @@ void Dashing::on_enter(World &world, GameObject &obj) {
 }
 
 Action * Dashing::input(World &world, GameObject &obj, ActionType action_type) {
-
     if (action_type == ActionType::None) {
         obj.fsm->transition(Transition::Stop, world, obj);
     }
-
     return nullptr;
 
 }
 
 // Swinging
 void Swinging::on_enter(World &, GameObject &obj) {
-
+    elapsed = cooldown;
     obj.color ={200, 200, 0, 255};
 }
+
+void Swinging::update(World &world, GameObject &obj, double dt) {
+    elapsed -= dt;
+    if (elapsed <= 0 && on_platform(world, obj)) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+}
+
 Action *Swinging::input(World &world, GameObject &obj, ActionType action_type) {
 
-    if (action_type == ActionType::None) {
+    if (action_type == ActionType::None && on_platform(world,obj)) {
         obj.fsm->transition(Transition::Stop, world, obj);
     }
     if (action_type == ActionType::DashLeft) {
@@ -145,15 +159,26 @@ Action *Swinging::input(World &world, GameObject &obj, ActionType action_type) {
     return nullptr;
 }
 
+
 //Crouching
 void Crouching::on_enter(World &, GameObject & obj) {
-    // TODO:
-    obj.color ={};
+    obj.sprite.scale /= 2;
+    obj.color ={200,200,200};
 }
-Action *Crouching::input(World &, GameObject &, ActionType) {
-    // TODO:
+Action *Crouching::input(World &world, GameObject &obj, ActionType action_type) {
+    if (action_type == ActionType::Crouch) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+    if (action_type == ActionType::Jump) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+    return nullptr;
+
 }
 
+void Crouching::on_exit(World &, GameObject &obj) {
+    obj.sprite.scale *= 2;
+}
 
 
 // enum class StateType {Standing,InAir,Walking,Dashing,Swinging,Crouching};

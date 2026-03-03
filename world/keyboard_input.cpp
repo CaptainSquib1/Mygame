@@ -16,7 +16,6 @@ void KeyboardInput::get_input() {
         else {
             next_action_type = ActionType::MoveLeft;
         }
-
     }
     if (key_states[SDL_SCANCODE_D] || key_states[SDL_SCANCODE_RIGHT]) {
         if (key_states[SDL_SCANCODE_LALT]) {
@@ -48,6 +47,9 @@ void KeyboardInput::collect_discrete_event(SDL_Event *event) {
     if (event->type == SDL_EVENT_KEY_DOWN && event->key.repeat == 0) {
         if (event->key.scancode == SDL_SCANCODE_SPACE) {
             next_action_type = ActionType::Jump;
+        }
+        if (event->key.scancode == SDL_SCANCODE_LCTRL) {
+            next_action_type = ActionType::Crouch;
         }
     }
 }

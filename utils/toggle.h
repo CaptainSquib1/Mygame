@@ -3,7 +3,7 @@
 
 class Toggle {
     public:
-    Toggle(bool on=false, double required_time=0.25);
+    Toggle(bool on=false, double required_time=1);
     void flip();
 
     bool on;
