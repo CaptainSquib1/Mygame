@@ -1,14 +1,14 @@
 {
   "ooo" :{
-    "filename" : "player_idle.png",
+    "filename" : "./brackeys_platformer_assets/sprites/knight.png",
     "location" : [0,0],
     "size" : [32,32],
     "scale" : 2
   },
   "idle" :{
-    "filename" : "./brackeys_platformer_assets/sprites/knight.png",
-    "location" : [0,1],
-    "size" : [32,32],
-    "scale" : 3
+    "filename" : "Jumping.png",
+    "location" : [0,0],
+    "size" : [199,198],
+    "scale" : 0.30
   }
 }
