@@ -1,14 +1,51 @@
 {
-  "ooo" :{
-    "filename" : "./brackeys_platformer_assets/sprites/knight.png",
-    "location" : [0,0],
-    "size" : [32,32],
-    "scale" : 2
-  },
-  "idle" :{
-    "filename" : "Jumping.png",
-    "location" : [0,0],
-    "size" : [199,198],
-    "scale" : 0.30
+  "sprites" : [
+    {
+      "name" : "idle",
+      "filename" : "Walking.png",
+      "location" : [0,0],
+      "size" : [193,199],
+      "scale" : 0.3,
+      "number_of_frames" : 4,
+      "dt_per_frame" : 0.1
+    },
+    {
+      "name" : "walking",
+      "filename" : "Running.png",
+      "location" : [0,0],
+      "size" : [193,199],
+      "scale" : 0.3,
+      "number_of_frames" : 6,
+      "dt_per_frame" : 0.1
+    },
+    {
+      "name" : "jumping",
+      "filename" : "Jumping.png",
+      "location" : [0,0],
+      "size" : [195,199],
+      "scale" : 0.3,
+      "number_of_frames" : 6,
+      "dt_per_frame" : 0.1
+    },
+    {
+      "name" : "swinging",
+      "filename" : "Swinging.png",
+      "location" : [0,0],
+      "size" : [195,199],
+      "scale" : 0.3,
+      "number_of_frames" : 4,
+      "dt_per_frame" : 0.1
+    }
+  ],
+  "physics" : {
+    "position" : [10,5],
+    "velocity" :[0,0],
+    "acceleration" : [0,-30],
+    "gravity" : -30.0,
+    "damping" : 0.9,
+    "walk_acceleration" : 60.0,
+    "jump_velocity" : 20.0,
+    "terminal_velocity" : 30.0,
+    "dashing_velocity" : 20.0
   }
 }

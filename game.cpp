@@ -24,7 +24,9 @@ Game::Game(std::string title, int width, int height)
 
 
     player = world.create_player();
-    player->sprite = AssetManager::get_game_object_sprite("player", graphics);
+    AssetManager::get_game_object_details("player", graphics, *player);
+    player->fsm->current_state->on_enter(world, *player);
+
     camera.set_location(player->physics.position);
 }
 

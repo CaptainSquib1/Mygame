@@ -18,6 +18,7 @@ bool on_platform(World& world, GameObject& obj) {
 //////////////
 void Standing::on_enter(World &, GameObject & obj) {
     obj.color = {255,0,0,255};
+    obj.set_sprite("idle");
     obj.physics.acceleration.x = 0;
 }
 
@@ -51,6 +52,7 @@ Action *Standing::input(World& world, GameObject& obj, ActionType action_type) {
 // In Air
 void InAir::on_enter(World &world, GameObject &obj) {
     elapsed = cooldown;
+    obj.set_sprite("jumping");
     obj.color = {0,0,255,255};
 }
 
@@ -93,6 +95,7 @@ Action *InAir::input(World &world, GameObject &obj, ActionType action_type) {
 }
 // Walking
 void Walking::on_enter(World &, GameObject & obj) {
+    obj.set_sprite("walking");
     obj.color = {0,255,0,255};
 }
 
@@ -120,7 +123,7 @@ Action* Walking::input(World& world, GameObject& obj, ActionType action_type) {
 }
 // Dashing
 void Dashing::on_enter(World &world, GameObject &obj) {
-
+    obj.set_sprite("dashing");
     obj.color = {255,0, 255, 255};
 }
 
@@ -135,6 +138,7 @@ Action * Dashing::input(World &world, GameObject &obj, ActionType action_type) {
 // Swinging
 void Swinging::on_enter(World &, GameObject &obj) {
     elapsed = cooldown;
+    obj.set_sprite("swinging");
     obj.color ={200, 200, 0, 255};
 }
 
@@ -163,6 +167,7 @@ Action *Swinging::input(World &world, GameObject &obj, ActionType action_type) {
 //Crouching
 void Crouching::on_enter(World &, GameObject & obj) {
     obj.sprite.scale /= 2;
+    obj.set_sprite("crouching");
     obj.color ={200,200,200};
 }
 Action *Crouching::input(World &world, GameObject &obj, ActionType action_type) {
