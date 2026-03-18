@@ -1,5 +1,6 @@
 #include "action.h"
 #include "game_object.h"
+#include "particle_system.h"
 #include "world.h"
 
 void Jump::perform(World&, GameObject& obj) {
@@ -29,4 +30,8 @@ void SwingRight::perform(World&, GameObject& obj) {
 void SwingLeft::perform(World&, GameObject& obj) {
     obj.physics.velocity.x += -obj.physics.dashing_velocity;
     obj.physics.velocity.y += obj.physics.dashing_velocity/2;
+}
+
+void ParticleActivate::perform(World &, GameObject &obj) {
+
 }
