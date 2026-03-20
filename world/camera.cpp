@@ -36,6 +36,7 @@ Vec<float> Camera::world_to_screen(const Vec<float> &world_position) const {
 void Camera::set_location(const Vec<float>& new_location) {
     physics.position = new_location;
     calculate_visible_tiles();
+    physics.damping = 0.9;
 }
 
 void Camera::update(const Vec<float> &new_location, float dt) {
@@ -71,15 +72,18 @@ void Camera::render(const Tilemap &tilemap) const {
         for (int x = xmin; x <= xmax; ++x) {
             const Tile& tile = tilemap(x, y);
             Vec<float> position{static_cast<float>(x), static_cast<float>(y)};
-            if (tile == Tile::Platform) {
-                render(position, {0, 255, 0, 255});
+            if (tile.blocking) {
+                render(position, tile.sprite);
             }
             else {
+
                 render(position, {0, 127, 127, 255});
             }
             if (grid_toggle.on) {
                 render(position, {0, 0, 0, 255}, false);
+
             }
+            render(position, tile.sprite);
         }
     }
 }

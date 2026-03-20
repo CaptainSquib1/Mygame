@@ -4,6 +4,7 @@
 #include <functional>
 #include <sstream>
 #include <cmath>
+#include "vec.h"
 
 template <typename T>
 class Vec {
@@ -89,6 +90,14 @@ bool operator!=(const Vec<T>& left, const Vec<T>& right) {
 }
 
 template <typename T>
+bool operator<(const Vec<T>& left, const Vec<T>& right) {
+    if (left.x != right.x) {
+        return left.x < right.x;
+    }
+    return left.y < right.y;
+}
+
+template <typename T>
 float distance(const Vec<T>& a, const Vec<T>& b) {
     Vec difference = a - b;
     return length(difference);
@@ -97,6 +106,12 @@ float distance(const Vec<T>& a, const Vec<T>& b) {
 template <typename T>
 float length(const Vec<T>& v) {
     return std::sqrt(v.x*v.x + v.y*v.y);
+}
+
+template <typename T>
+Vec<T> unit(const Vec<T>& v) {
+    float length = length(v);
+    return v / length;
 }
 
 template <typename T>

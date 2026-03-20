@@ -34,4 +34,5 @@ public:
     Sprites sprites;
     Sprite sprite;
     std::string sprite_name;
+    bool flipped;
 };

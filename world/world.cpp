@@ -4,20 +4,20 @@
 #include "game_object.h"
 #include "fsm.h"
 #include "states.h"
+#include "level.h"
 
 #include "vec.h"
 #include "physics.h"
 #include "keyboard_input.h"
 
-World::World(int width, int height)
-    : tilemap{width, height}  {
-
+World::World(const Level& level) : tilemap{level.width, level.height} {
+    load_level(level);
 }
 
 void World::add_platform(float x, float y, float width, float height) {
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
-            tilemap(x+j,y+i) = Tile::Platform;
+            tilemap(x+j,y+i) = Tile{};
         }
     }
 }
@@ -112,10 +112,10 @@ void World::move_to(Vec<float> &position, const Vec<int> &size, Vec<float> &velo
 bool World::collides(const Vec<float>& position) const {
     int x = std::floor(position.x);
     int y = std::floor(position.y);
-    return tilemap(x,y) == Tile::Platform;
+    return tilemap(x,y).blocking;
 }
 
-GameObject* World::create_player() {
+GameObject* World::create_player(const Level& level) {
     // Create FSM
     Transitions transitions = {
         // Standing to "Something"
@@ -138,6 +138,7 @@ GameObject* World::create_player() {
         {{StateType::Dashing,Transition::Stop},StateType::Walking},
         // Crouching to "Something"
         {{StateType::Crouching, Transition::Stop}, StateType::Standing},
+        {{StateType::Crouching, Transition::Move}, StateType::Walking},
         {{StateType::Crouching, Transition::Jump}, StateType::InAir},
     };
     States states = {
@@ -154,9 +155,9 @@ GameObject* World::create_player() {
     KeyboardInput* input = new KeyboardInput;
 
 
-    player = std::make_unique<GameObject>(Vec<float>{10, 5}, Vec<int>{1, 1}, *this, fsm, input, Color{255,255,0,255});
+    player = new GameObject(Vec<float>{static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)}, Vec<int>{1, 1}, *this, fsm, input, Color{255,255,0,255});
 
-    return player.get();
+    return player;
 }
 
 void World::update(float dt) {
@@ -184,4 +185,11 @@ void World::update(float dt) {
     player->physics.velocity = future_velocity;
     player->physics.position = future_position;
 }
+
+void World::load_level(const Level &level) {
+    for (const auto& [pos, tile_id] : level.tile_locations) {
+        tilemap(pos.x, pos.y) = level.tile_types.at(tile_id);
+    }
+}
+
 

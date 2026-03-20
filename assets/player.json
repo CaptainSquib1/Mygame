@@ -2,38 +2,56 @@
   "sprites" : [
     {
       "name" : "idle",
-      "filename" : "Walking.png",
+      "filename" : "newlizardsprite.png",
       "location" : [0,0],
-      "size" : [193,199],
-      "scale" : 0.3,
+      "size" : [16,16],
+      "scale" : 4,
       "number_of_frames" : 4,
-      "dt_per_frame" : 0.1
+      "dt_per_frame" : 0.3
     },
     {
       "name" : "walking",
-      "filename" : "Running.png",
-      "location" : [0,0],
-      "size" : [193,199],
-      "scale" : 0.3,
-      "number_of_frames" : 6,
+      "filename" : "newlizardsprite.png",
+      "location" : [0,16],
+      "size" : [16,16],
+      "scale" : 4,
+      "number_of_frames" : 4,
       "dt_per_frame" : 0.1
     },
     {
       "name" : "jumping",
-      "filename" : "Jumping.png",
-      "location" : [0,0],
-      "size" : [195,199],
-      "scale" : 0.3,
-      "number_of_frames" : 6,
+      "filename" : "newlizardsprite.png",
+      "location" : [0,32],
+      "size" : [16,16],
+      "scale" : 4,
+      "number_of_frames" : 1,
       "dt_per_frame" : 0.1
     },
     {
       "name" : "swinging",
-      "filename" : "Swinging.png",
-      "location" : [0,0],
-      "size" : [195,199],
-      "scale" : 0.3,
-      "number_of_frames" : 4,
+      "filename" : "newlizardsprite.png",
+      "location" : [0,48],
+      "size" : [16,16],
+      "scale" : 4,
+      "number_of_frames" : 1,
+      "dt_per_frame" : 0.1
+    },
+    {
+      "name" : "crouching",
+      "filename" : "newlizardsprite.png",
+      "location" : [0,64],
+      "size" : [16,16],
+      "scale" : 4,
+      "number_of_frames" : 1,
+      "dt_per_frame" : 0.1
+    },
+    {
+      "name" : "dashing",
+      "filename" : "newlizardsprite.png",
+      "location" : [0,80],
+      "size" : [16,16],
+      "scale" : 4,
+      "number_of_frames" : 1,
       "dt_per_frame" : 0.1
     }
   ],

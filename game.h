@@ -13,8 +13,8 @@ public:
     void render();
 
 private:
-    GameObject* player;
-    World world;
+    std::unique_ptr<GameObject> player;
+    World* world;
     Graphics graphics;
 
     // timing

@@ -32,10 +32,12 @@ Action *Standing::input(World& world, GameObject& obj, ActionType action_type) {
         return new Crouch();
     }
     if (action_type == ActionType::MoveLeft) {
+        obj.flipped = true;
         obj.fsm->transition(Transition::Move,world,obj);
         return new MoveLeft();
     }
     if (action_type == ActionType::MoveRight) {
+        obj.flipped = false;
         obj.fsm->transition(Transition::Move,world,obj);
         return new MoveRight();
     }
@@ -68,10 +70,12 @@ Action *InAir::input(World &world, GameObject &obj, ActionType action_type) {
         return nullptr;
     }
     if (action_type == ActionType::MoveLeft) {
+        obj.flipped = true;
         obj.fsm->transition(Transition::Move,world,obj);
         return new MoveLeft();
     }
     if (action_type == ActionType::MoveRight) {
+        obj.flipped = false;
         obj.fsm->transition(Transition::Move,world,obj);
         return new MoveRight();
     }
@@ -166,13 +170,20 @@ Action *Swinging::input(World &world, GameObject &obj, ActionType action_type) {
 
 //Crouching
 void Crouching::on_enter(World &, GameObject & obj) {
-    obj.sprite.scale /= 2;
     obj.set_sprite("crouching");
     obj.color ={200,200,200};
 }
 Action *Crouching::input(World &world, GameObject &obj, ActionType action_type) {
     if (action_type == ActionType::Crouch) {
         obj.fsm->transition(Transition::Stop, world, obj);
+    }
+    if (action_type == ActionType::MoveLeft) {
+        obj.flipped = true;
+        obj.fsm->transition(Transition::Move, world, obj);
+    }
+    if (action_type == ActionType::MoveRight) {
+        obj.flipped = false;
+        obj.fsm->transition(Transition::Move, world, obj);
     }
     if (action_type == ActionType::Jump) {
         obj.fsm->transition(Transition::Stop, world, obj);
@@ -182,7 +193,7 @@ Action *Crouching::input(World &world, GameObject &obj, ActionType action_type) 
 }
 
 void Crouching::on_exit(World &, GameObject &obj) {
-    obj.sprite.scale *= 2;
+
 }
 
 

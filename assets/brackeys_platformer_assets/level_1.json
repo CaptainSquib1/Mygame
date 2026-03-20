@@ -1,0 +1,135 @@
+{
+    "height": 15,
+    "tile_filenames": [
+        "nature-tiles.json"
+    ],
+    "tiles": [
+        {
+            "pos": [
+                0,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                1,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                2,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                3,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                4,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                5,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                6,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                7,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                8,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                8,
+                5
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                8,
+                8
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                9,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                9,
+                5
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                9,
+                6
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                9,
+                7
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                9,
+                8
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                10,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        },
+        {
+            "pos": [
+                11,
+                1
+            ],
+            "tile": "nature-tiles.json:blank brick"
+        }
+    ],
+    "width": 31
+}
