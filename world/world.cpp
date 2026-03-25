@@ -5,12 +5,12 @@
 #include "fsm.h"
 #include "states.h"
 #include "level.h"
-
 #include "vec.h"
 #include "physics.h"
 #include "keyboard_input.h"
+#include "audio.h"
 
-World::World(const Level& level) : tilemap{level.width, level.height} {
+World::World(const Level& level, Audio& audio) : tilemap{level.width, level.height}, audio{&audio}{
     load_level(level);
 }
 
@@ -190,6 +190,7 @@ void World::load_level(const Level &level) {
     for (const auto& [pos, tile_id] : level.tile_locations) {
         tilemap(pos.x, pos.y) = level.tile_types.at(tile_id);
     }
+    audio->load_sounds({});
 }
 
 

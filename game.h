@@ -3,6 +3,7 @@
 #include "game_object.h"
 #include "world.h"
 #include "fsm.h"
+#include "audio.h"
 
 class Game {
 public:
@@ -23,4 +24,5 @@ private:
     Uint64 prev_counter;
     float lag;
     Camera camera;
+    Audio audio;
 };

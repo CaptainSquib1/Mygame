@@ -25,11 +25,11 @@ void Crouch::perform(World&, GameObject& obj) {
 }
 void SwingRight::perform(World&, GameObject& obj) {
     obj.physics.velocity.x += obj.physics.dashing_velocity;
-    obj.physics.velocity.y += obj.physics.dashing_velocity/2;
+    obj.physics.velocity.y += obj.physics.dashing_velocity/4;
 }
 void SwingLeft::perform(World&, GameObject& obj) {
     obj.physics.velocity.x += -obj.physics.dashing_velocity;
-    obj.physics.velocity.y += obj.physics.dashing_velocity/2;
+    obj.physics.velocity.y += obj.physics.dashing_velocity/4;
 }
 
 void ParticleActivate::perform(World &, GameObject &obj) {

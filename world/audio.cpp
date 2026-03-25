@@ -34,7 +34,7 @@ Audio::~Audio() {
 }
 
 void Audio::load_sounds(const std::unordered_map<std::string, std::string> sound_files) {
-    auto path = std::filesystem::current_path() / "assets" / "action-music.mp3";
+    auto path = std::filesystem::current_path() / "assets" / "brackeys_platformer_assets" / "music" / "time_for_adventure.mp3";
     std::ifstream input(path);
     if (!input) {
         throw std::runtime_error("Audio::load_sounds() could not open audio file" + path.string());

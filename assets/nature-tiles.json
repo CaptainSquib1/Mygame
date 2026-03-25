@@ -1,193 +1,186 @@
 {
   "tiles": [
     {
-      "name": "grass_top_left",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [0, 0],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "vertical_brick",
+        "filename": "newlizardsprite.png",
+        "location": [0, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "grass_top_middle",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [16, 0],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "horizontal_brick",
+        "filename": "newlizardsprite.png",
+        "location": [16, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "grass_top_right",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [32, 0],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "btm_right_brick",
+        "filename": "newlizardsprite.png",
+        "location": [32, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "grass_alone",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [48, 16],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "btm_left_brick",
+        "filename": "newlizardsprite.png",
+        "location": [48, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "dirt_specs_left",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [0, 16],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "top_right_brick",
+        "filename": "newlizardsprite.png",
+        "location": [64, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "dirt_specs_left_bottom",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [0, 32],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "top_left_brick",
+        "filename": "newlizardsprite.png",
+        "location": [80, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "dirt_specs_bottom",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [16, 32],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "top_vert_end",
+        "filename": "newlizardsprite.png",
+        "location": [96, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "dirt_specs_right_bottom",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [32, 32],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "btm_vert_end",
+        "filename": "newlizardsprite.png",
+        "location": [112, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "dirt_specs_right",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [32, 16],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "horizontal_left_end",
+        "filename": "newlizardsprite.png",
+        "location": [128, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "dirt",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [16, 16],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "horizontal_right_end",
+        "filename": "newlizardsprite.png",
+        "location": [144, 112],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "brick-alone",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [96, 48],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "next_level",
+        "filename": "newlizardsprite.png",
+        "location": [0, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "brick-top-left",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [48, 32],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "previous_level",
+        "filename": "newlizardsprite.png",
+        "location": [16, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     },
     {
-      "name": "brick-middle-left",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [48, 48],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "treasure_room",
+        "filename": "newlizardsprite.png",
+        "location": [32, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": ""
     },
     {
-      "name": "brick-bottom-left",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [48, 64],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "brick-bottom-middle",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [64, 64],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "brick-bottom-right",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [80, 64],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "brick-middle-right",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [80, 48],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "brick-top-right",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [80, 32],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "brick-top-middle",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [64, 32],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "brick-middle",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [64, 48],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
-    },
-    {
-      "name": "blank brick",
-      "filename": "rotting-pixels-tiles.png",
-      "location": [96, 80],
-      "size": [16, 16],
-      "scale": 4,
-      "number_of_frames": 1,
-      "dt_per_frame": -1
+      "sprite": {
+        "name": "spike",
+        "filename": "newlizardsprite.png",
+        "location": [48, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": ""
     }
   ]
 }

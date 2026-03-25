@@ -10,7 +10,7 @@ Game::Game(std::string title, int width, int height)
     AssetManager::get_level_details(graphics, level);
 
     //world
-    world = new World(level);
+    world = new World(level, audio);
 
     //player
     player = std::unique_ptr<GameObject>(world->create_player(level));
@@ -20,6 +20,7 @@ Game::Game(std::string title, int width, int height)
     player->fsm->current_state->on_enter(*world, *player);
 
     camera.set_location(player->physics.position);
+    audio.play_sound("background", true);
 }
 
 void Game::handle_event(SDL_Event* event) {
@@ -47,7 +48,6 @@ void Game::update() {
 }
 
 void Game::render() {
-
     //clear screen
     graphics.clear();
 

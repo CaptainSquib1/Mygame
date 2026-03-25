@@ -76,14 +76,11 @@ void Camera::render(const Tilemap &tilemap) const {
                 render(position, tile.sprite);
             }
             else {
-
-                render(position, {0, 127, 127, 255});
+                render(position, tile.sprite);
             }
             if (grid_toggle.on) {
-                render(position, {0, 0, 0, 255}, false);
-
+                render(position, {0, 255, 0, 255}, false);
             }
-            render(position, tile.sprite);
         }
     }
 }
