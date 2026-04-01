@@ -6,8 +6,8 @@
 #include "physics.h"
 
 
-GameObject::GameObject(const Vec<float> &position, const Vec<int>& size, World& world, FSM* fsm, Input* input, Color color)
-    : physics{position, {0,0},{0,0}},size{size}, fsm {fsm}, input{input}, color {color}  {
+GameObject::GameObject( const Vec<int>& size, FSM* fsm, Input* input, Color color)
+    : size{size}, fsm {fsm}, input{input}, color {color}  {
     physics.acceleration.y = physics.gravity;
 
 }
@@ -21,7 +21,7 @@ GameObject::~GameObject() {
 void GameObject::update(World& world, double dt) {
     fsm->current_state->update(world, *this, dt);
     sprites[sprite_name].update(dt);
-    sprites[sprite_name].flip(flipped);
+    sprites[sprite_name].flip(physics.acceleration.x < 0);
     set_sprite(sprite_name);
 }
 

@@ -1,0 +1,32 @@
+{
+    "sprites" : [
+        {
+            "name" : "idle",
+            "filename" : "newlizardsprite.png",
+            "location" : [80, 0],
+            "size" : [16, 16],
+            "scale" : 4,
+            "number_of_frames" : 4,
+            "dt_per_frame" : 0.1
+        },
+        {
+            "name" : "walking",
+            "filename" : "newlizardsprite.png",
+            "location" : [80, 16],
+            "size" : [16, 16],
+            "scale" : 4,
+            "number_of_frames" : 4,
+            "dt_per_frame" : 0.1
+        }
+    ],
+    "physics" : {
+        "position": [0, 0],
+        "velocity": [0, 0],
+        "acceleration" : [0, 0],
+        "gravity": 0,
+        "damping": 0.9,
+        "walk_acceleration": 60.0,
+        "jump_velocity": 20.0,
+        "terminal_velocity": 30.0
+    }
+}

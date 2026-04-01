@@ -9,8 +9,9 @@
 #include "physics.h"
 #include "keyboard_input.h"
 #include "audio.h"
+#include "events.h"
 
-World::World(const Level& level, Audio& audio) : tilemap{level.width, level.height}, audio{&audio}{
+World::World(const Level& level, Audio& audio, GameObject* player, Events events) : tilemap{level.width, level.height}, audio{&audio}, events{events}, player{player}{
     load_level(level);
 }
 
@@ -115,50 +116,6 @@ bool World::collides(const Vec<float>& position) const {
     return tilemap(x,y).blocking;
 }
 
-GameObject* World::create_player(const Level& level) {
-    // Create FSM
-    Transitions transitions = {
-        // Standing to "Something"
-        {{StateType::Standing, Transition::Crouch}, StateType::Crouching},
-        {{StateType::Standing, Transition::Jump}, StateType::InAir},
-        {{StateType::Standing, Transition::Move}, StateType::Walking},
-        // Walking to "Something"
-        {{StateType::Walking, Transition::Stop}, StateType::Standing},
-        {{StateType::Walking, Transition::Crouch}, StateType::Crouching},
-        {{StateType::Walking, Transition::Jump}, StateType::InAir},
-        {{StateType::Walking, Transition::Dash}, StateType::Dashing},
-        // InAir to "Something"
-        {{StateType::InAir, Transition::Stop}, StateType::Standing},
-        {{StateType::InAir, Transition::Swing}, StateType::Swinging},
-        {{StateType::InAir, Transition::Dash}, StateType::Dashing},
-        // Swinging to "Something"
-        {{StateType::Swinging, Transition::Stop}, StateType::InAir},
-        {{StateType::Swinging, Transition::Dash}, StateType::Dashing},
-        // Dashing to "Something"
-        {{StateType::Dashing,Transition::Stop},StateType::Walking},
-        // Crouching to "Something"
-        {{StateType::Crouching, Transition::Stop}, StateType::Standing},
-        {{StateType::Crouching, Transition::Move}, StateType::Walking},
-        {{StateType::Crouching, Transition::Jump}, StateType::InAir},
-    };
-    States states = {
-        {StateType::Standing, new Standing()},
-        {StateType::InAir, new InAir()},
-        {StateType::Walking, new Walking()},
-        {StateType::Dashing, new Dashing()},
-        {StateType::Crouching, new Crouching()},
-        {StateType::Swinging, new Swinging()},
-    };
-    FSM* fsm = new FSM(transitions, states, StateType::Standing);
-
-    //player input
-    KeyboardInput* input = new KeyboardInput;
-
-
-    player = new GameObject(Vec<float>{static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)}, Vec<int>{1, 1}, *this, fsm, input, Color{255,255,0,255});
-
-    return player;
-}
 
 void World::update(float dt) {
     // currently only updating player
@@ -184,6 +141,8 @@ void World::update(float dt) {
     // update the player position and velocity
     player->physics.velocity = future_velocity;
     player->physics.position = future_position;
+
+    touch_tiles(*player);
 }
 
 void World::load_level(const Level &level) {
@@ -193,4 +152,19 @@ void World::load_level(const Level &level) {
     audio->load_sounds({});
 }
 
+void World::touch_tiles(GameObject &obj) {
+    int x = std::floor(obj.physics.position.x);
+    int y = std::floor(obj.physics.position.y);
+    const std::vector<Vec<int>> displacements{{0,0}, {obj.size.x, 0}, {0, obj.size.y}, {obj.size.x, obj.size.y}};
+    for (const auto& displacement : displacements) {
+        Tile& tile = tilemap(x + displacement.x + .1, y + displacement.y+ .1);
+        if (!tile.event_name.empty()) {
+            auto itr = events.find(tile.event_name);
+            if (itr == events.end()) {
+                throw std::runtime_error("Cannot find event: "+ tile.event_name);
+            }
+            itr->second->perform(*this, obj);
+        }
+    }
+}
 

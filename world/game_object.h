@@ -18,7 +18,7 @@ using Sprites = std::pmr::map<std::string, AnimatedSprite>;
 
 class GameObject {
 public:
-    GameObject(const Vec<float> &position, const Vec<int>& size, World& world, FSM* fsm, Input* input, Color color);
+    GameObject(const Vec<int>& size, FSM* fsm, Input* input, Color color);
     ~GameObject();
 
     void update(World& world, double dt);
@@ -34,5 +34,6 @@ public:
     Sprites sprites;
     Sprite sprite;
     std::string sprite_name;
-    bool flipped;
+
+    bool flipped = false;
 };

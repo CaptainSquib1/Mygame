@@ -141,7 +141,7 @@
         "dt_per_frame": -1
       },
       "blocking": true,
-      "event_name": ""
+      "event_name": "next_level"
     },
     {
       "sprite": {
@@ -154,7 +154,7 @@
         "dt_per_frame": -1
       },
       "blocking": true,
-      "event_name": ""
+      "event_name": "previous_level"
     },
     {
       "sprite": {
@@ -167,7 +167,7 @@
         "dt_per_frame": -1
       },
       "blocking": false,
-      "event_name": ""
+      "event_name": "treasure_room"
     },
     {
       "sprite": {
@@ -180,7 +180,7 @@
         "dt_per_frame": -1
       },
       "blocking": false,
-      "event_name": ""
+      "event_name": "spiked"
     }
   ]
 }
