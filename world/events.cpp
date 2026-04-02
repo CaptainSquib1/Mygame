@@ -10,7 +10,7 @@ void NextLevel::perform(World &world, GameObject &obj) {
 }
 
 void PreviousLevel::perform(World &world, GameObject& obj) {
-    std::cout << "previousLevel\n";
+    world.back_level = true;
 }
 
 void TreasureRoom::perform(World &world, GameObject &obj) {

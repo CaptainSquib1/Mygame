@@ -150,14 +150,21 @@ void World::load_level(const Level &level) {
         tilemap(pos.x, pos.y) = level.tile_types.at(tile_id);
     }
     audio->load_sounds({});
+
+    //get all enemies
+    for (const auto& [pos,enemy_name] : level.enemy_locations) {
+        GameObject enemy{enemy_name, nullptr, nullptr,{255,0,0,255}};
+        enemy.physics.position = pos;
+        game_objects.push_back(enemy);
+    }
 }
 
 void World::touch_tiles(GameObject &obj) {
     int x = std::floor(obj.physics.position.x);
     int y = std::floor(obj.physics.position.y);
-    const std::vector<Vec<int>> displacements{{0,0}, {obj.size.x, 0}, {0, obj.size.y}, {obj.size.x, obj.size.y}};
+    const std::vector<Vec<float>> displacements{{0,0}, {static_cast<float>(obj.size.x), 0}, {0, static_cast<float>(obj.size.y)}, {static_cast<float>(obj.size.x), static_cast<float>(obj.size.y)}};
     for (const auto& displacement : displacements) {
-        Tile& tile = tilemap(x + displacement.x + .1, y + displacement.y+ .1);
+        Tile& tile = tilemap(x + displacement.x, y + displacement.y);
         if (!tile.event_name.empty()) {
             auto itr = events.find(tile.event_name);
             if (itr == events.end()) {

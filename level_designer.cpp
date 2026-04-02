@@ -83,6 +83,7 @@ void LevelDesigner::input() {
 
     if ((keys[SDL_SCANCODE_DELETE] || keys[SDL_SCANCODE_BACKSPACE]) && selected_tile.x >= 0 && selected_tile.y >= 0) {
         tilemap(selected_tile.x, selected_tile.y) = Tile{};
+
     }
     // RGUI & LGUI for CMD on mac
     if (keys[SDL_SCANCODE_S] && (keys[SDL_SCANCODE_LCTRL] || keys[SDL_SCANCODE_RCTRL] || keys[SDL_SCANCODE_LGUI] || keys[SDL_SCANCODE_RGUI])) {
@@ -90,6 +91,18 @@ void LevelDesigner::input() {
     }
     if (keys[SDL_SCANCODE_P]) {
         place_player();
+    }
+    if (keys[SDL_SCANCODE_1]) {
+        place_enemy("evillizard");
+    }
+    if (keys[SDL_SCANCODE_2]) {
+        place_enemy("fly");
+    }
+    if (keys[SDL_SCANCODE_3]) {
+        place_enemy("mummy");
+    }
+    if (keys[SDL_SCANCODE_4]) {
+        place_enemy("rock");
     }
 
     // timer for scrolling
@@ -141,6 +154,10 @@ void LevelDesigner::render() {
                 // render player location as translucent purple
                 if (level.player_spawn_location.x == tilemap_x && level.player_spawn_location.y == tilemap_y) {
                     graphics.draw(rect, {255, 0, 255, 100}, true);
+                }
+                //draw transparent yellow if there is an enemy
+                if (level.enemy_locations.contains({static_cast<float>(tilemap_x), static_cast<float>(tilemap_y)})) {
+                    graphics.draw(rect, {255,222,33,100});
                 }
             }
         }
@@ -197,3 +214,8 @@ void LevelDesigner::save() {
 void LevelDesigner::place_player() {
     level.player_spawn_location = selected_tile;
 }
+
+void LevelDesigner::place_enemy(std::string enemy_name) {
+    level.enemy_locations[{static_cast<float>(selected_tile.x),static_cast<float>(selected_tile.y)}] = enemy_name;
+}
+

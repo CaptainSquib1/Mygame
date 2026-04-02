@@ -22,14 +22,7 @@ Game::Game(std::string title, int width, int height)
     //world
     world = new World(level, audio, player.get(), events);
 
-
-
-    //spawn location's pos
-    player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
-    player->fsm->current_state->on_enter(*world, *player);
-
-    camera.set_location(player->physics.position);
-    audio.play_sound("background", true);
+    load_level("stay");
 }
 
 Game::~Game() {
@@ -61,8 +54,11 @@ void Game::update() {
         Vec displacement = 8.0f * player->physics.velocity / (1.0f + L); // change first float for distance ahead
         camera.update(player->physics.position + displacement, dt);
         lag -= dt;
-        if (world->end_level) {
-            load_level();
+        if (world->end_level&&current_level!=2) {
+            load_level("next");
+        }
+        if (world->back_level && current_level!=1) {
+            load_level("previous");
         }
     }
 }
@@ -78,6 +74,11 @@ void Game::render() {
     //draw player
     camera.render(*player);
 
+    //enemies
+    for (auto& obj : world->game_objects) {
+        camera.render(obj);
+    }
+
     //update
     graphics.update();
 }
@@ -89,16 +90,30 @@ void Game::get_events() {
     events["spiked"] = new Spikes();
 }
 
-void Game::load_level() {
-    std::string level_name = "level_" + std::to_string(++current_level);
+void Game::load_level(auto direction) {
+    std::string level_name;
+    if (direction == "next") {
+        level_name = "level_" + std::to_string(++current_level);
+    }
+    else if (direction == "previous") {
+        level_name = "level_" + std::to_string(--current_level);
+    }
+    else {
+        level_name = "level_" + std::to_string(current_level);
+    }
     Level level{level_name};
     AssetManager::get_level_details(graphics, level);
 
     // create the world
     delete world;
     world = new World(level, audio, player.get(), events);
+    // assets for objs
+    for (auto& obj : world->game_objects) {
+        AssetManager::get_game_object_details(obj.obj_name + "-enemy", graphics, obj);
+    }
 
     player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
+    player->fsm->current_state->on_enter(*world,*player);
     camera.set_location(player->physics.position);
     audio.play_sound("background", true);
 }
@@ -142,6 +157,6 @@ void Game::create_player() {
     //player input
     KeyboardInput* input = new KeyboardInput;
 
-    player = std::make_unique<GameObject>(Vec<int>{1, 1}, fsm, input, Color{255,255,0,255});
+    player = std::make_unique<GameObject>("player", fsm, input, Color{255,255,0,255});
 
 }

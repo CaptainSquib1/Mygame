@@ -1,4 +1,4 @@
-    {
+{
     "height": 15,
     "player_spawn_location": [
         7,
@@ -8,6 +8,34 @@
         "nature-tiles.json"
     ],
     "tiles": [
+        {
+            "pos": [
+                3,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                3,
+                5
+            ],
+            "tile": "nature-tiles.json:previous_level"
+        },
+        {
+            "pos": [
+                4,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                5,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
         {
             "pos": [
                 6,
@@ -28,6 +56,83 @@
                 4
             ],
             "tile": "nature-tiles.json:btm_left_brick"
+        },
+        {
+            "pos": [
+                9,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                10,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                11,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                11,
+                5
+            ],
+            "tile": "nature-tiles.json:vertical_brick"
+        },
+        {
+            "pos": [
+                11,
+                6
+            ],
+            "tile": "nature-tiles.json:vertical_brick"
+        },
+        {
+            "pos": [
+                12,
+                4
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                12,
+                5
+            ],
+            "tile": "nature-tiles.json:next_level"
+        },
+        {
+            "pos": [
+                12,
+                6
+            ],
+            "tile": "nature-tiles.json:vertical_brick"
+        },
+        {
+            "pos": [
+                13,
+                4
+            ],
+            "tile": "nature-tiles.json:vertical_brick"
+        },
+        {
+            "pos": [
+                13,
+                5
+            ],
+            "tile": "nature-tiles.json:vertical_brick"
+        },
+        {
+            "pos": [
+                13,
+                6
+            ],
+            "tile": "nature-tiles.json:vertical_brick"
         }
     ],
     "width": 31

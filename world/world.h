@@ -29,11 +29,13 @@ public:
 
     Tilemap tilemap;
     bool end_level{false};
+    bool back_level{false};
 
-private:
+
     GameObject* player;
     Audio* audio;
     Events events;
+    std::vector<GameObject> game_objects;
 
     void touch_tiles(GameObject& obj);
 };

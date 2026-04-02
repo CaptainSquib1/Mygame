@@ -36,5 +36,5 @@ private:
     //level help
     void create_player();
     int current_level{1};
-    void load_level();
+    void load_level(auto direction);
 };
