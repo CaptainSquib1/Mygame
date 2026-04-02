@@ -160,9 +160,9 @@ void World::load_level(const Level &level) {
 }
 
 void World::touch_tiles(GameObject &obj) {
-    int x = std::floor(obj.physics.position.x);
-    int y = std::floor(obj.physics.position.y);
-    const std::vector<Vec<float>> displacements{{0,0}, {static_cast<float>(obj.size.x), 0}, {0, static_cast<float>(obj.size.y)}, {static_cast<float>(obj.size.x), static_cast<float>(obj.size.y)}};
+    float x = obj.physics.position.x;
+    float y = obj.physics.position.y;
+    const std::vector<Vec<float>> displacements{{-.1,0}, {static_cast<float>(obj.size.x), 0}, {0, static_cast<float>(obj.size.y)}, {static_cast<float>(obj.size.x), static_cast<float>(obj.size.y)}};
     for (const auto& displacement : displacements) {
         Tile& tile = tilemap(x + displacement.x, y + displacement.y);
         if (!tile.event_name.empty()) {

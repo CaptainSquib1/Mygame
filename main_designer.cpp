@@ -4,13 +4,18 @@
 #include "level_designer.h"
 
 
-SDL_AppResult SDL_AppInit(void **appstate, int, char**) {
+SDL_AppResult SDL_AppInit(void **appstate, int argc, char** argv) {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 
-    auto designer = new LevelDesigner("level_1", 31, 15);
+    std::string level_name = "level_1";
+    if (argc > 1) {
+        level_name = argv[1];
+    }
+
+    auto designer = new LevelDesigner(level_name, 31, 15);
     *appstate = designer;
 
     return SDL_APP_CONTINUE;  /* carry on with the program! */

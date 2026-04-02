@@ -83,6 +83,9 @@ void LevelDesigner::input() {
 
     if ((keys[SDL_SCANCODE_DELETE] || keys[SDL_SCANCODE_BACKSPACE]) && selected_tile.x >= 0 && selected_tile.y >= 0) {
         tilemap(selected_tile.x, selected_tile.y) = Tile{};
+        if (level.enemy_locations.contains({static_cast<float>(selected_tile.x), static_cast<float>(selected_tile.y)})) {
+            level.enemy_locations.erase({static_cast<float>(selected_tile.x),static_cast<float>(selected_tile.y)});
+        }
 
     }
     // RGUI & LGUI for CMD on mac

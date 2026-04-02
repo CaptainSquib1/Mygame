@@ -153,13 +153,6 @@
         {
             "pos": [
                 1,
-                1
-            ],
-            "tile": "nature-tiles.json:previous_level"
-        },
-        {
-            "pos": [
-                1,
                 3
             ],
             "tile": "nature-tiles.json:horizontal_brick"
