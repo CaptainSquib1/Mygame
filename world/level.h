@@ -22,5 +22,6 @@ public:
     std::map<std::string, Tile> tile_types;
 
     Vec<int> player_spawn_location{-1, -1};
+    Vec<int> player_reverse_spawn_location{-1, -1};
     EnemyLocations enemy_locations;
 };

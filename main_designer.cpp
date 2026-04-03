@@ -10,7 +10,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char** argv) {
         return SDL_APP_FAILURE;
     }
 
-    std::string level_name = "level_1";
+    std::string level_name = "level_0";
     if (argc > 1) {
         level_name = argv[1];
     }

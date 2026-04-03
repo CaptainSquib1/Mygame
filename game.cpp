@@ -12,7 +12,7 @@ Game::Game(std::string title, int width, int height)
     //load events
     get_events();
     //load level
-    Level level{"level_1"};
+    Level level{"level_0"};
     AssetManager::get_level_details(graphics, level);
 
 
@@ -57,7 +57,7 @@ void Game::update() {
         if (world->end_level&&current_level!=2) {
             load_level("next");
         }
-        if (world->back_level && current_level!=1) {
+        if (world->back_level && current_level!=0) {
             load_level("previous");
         }
     }
@@ -111,8 +111,15 @@ void Game::load_level(auto direction) {
     for (auto& obj : world->game_objects) {
         AssetManager::get_game_object_details(obj.obj_name + "-enemy", graphics, obj);
     }
-
-    player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
+    if (direction == "previous") {
+        player->physics.position = {static_cast<float>(level.player_reverse_spawn_location.x), static_cast<float>(level.player_reverse_spawn_location.y)};
+    }
+    else if (direction == "next") {
+        player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
+    }
+    else {
+        player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
+    }
     player->fsm->current_state->on_enter(*world,*player);
     camera.set_location(player->physics.position);
     audio.play_sound("background", true);

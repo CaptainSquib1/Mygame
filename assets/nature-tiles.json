@@ -181,6 +181,84 @@
       },
       "blocking": false,
       "event_name": "spiked"
+    },
+    {
+      "sprite": {
+        "name": "sand",
+        "filename": "newlizardsprite.png",
+        "location": [64, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "blocking-sand",
+        "filename": "newlizardsprite.png",
+        "location": [64, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "gravel",
+        "filename": "newlizardsprite.png",
+        "location": [80, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "blocking-gravel",
+        "filename": "newlizardsprite.png",
+        "location": [80, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "sky",
+        "filename": "newlizardsprite.png",
+        "location": [96, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "blocking-sky",
+        "filename": "newlizardsprite.png",
+        "location": [96, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
     }
   ]
 }

@@ -83,9 +83,7 @@ void LevelDesigner::input() {
 
     if ((keys[SDL_SCANCODE_DELETE] || keys[SDL_SCANCODE_BACKSPACE]) && selected_tile.x >= 0 && selected_tile.y >= 0) {
         tilemap(selected_tile.x, selected_tile.y) = Tile{};
-        if (level.enemy_locations.contains({static_cast<float>(selected_tile.x), static_cast<float>(selected_tile.y)})) {
-            level.enemy_locations.erase({static_cast<float>(selected_tile.x),static_cast<float>(selected_tile.y)});
-        }
+        level.enemy_locations.erase({static_cast<float>(selected_tile.x),static_cast<float>(selected_tile.y)});
 
     }
     // RGUI & LGUI for CMD on mac
@@ -94,6 +92,9 @@ void LevelDesigner::input() {
     }
     if (keys[SDL_SCANCODE_P]) {
         place_player();
+    }
+    if (keys[SDL_SCANCODE_R]) {
+        place_player_reverse();
     }
     if (keys[SDL_SCANCODE_1]) {
         place_enemy("evillizard");
@@ -158,9 +159,15 @@ void LevelDesigner::render() {
                 if (level.player_spawn_location.x == tilemap_x && level.player_spawn_location.y == tilemap_y) {
                     graphics.draw(rect, {255, 0, 255, 100}, true);
                 }
+                if (level.player_reverse_spawn_location.x == tilemap_x && level.player_reverse_spawn_location.y == tilemap_y) {
+                    graphics.draw(rect, {0, 255, 0, 100}, true);
+                }
                 //draw transparent yellow if there is an enemy
                 if (level.enemy_locations.contains({static_cast<float>(tilemap_x), static_cast<float>(tilemap_y)})) {
                     graphics.draw(rect, {255,222,33,100});
+                }
+                if (tilemap(tilemap_x, tilemap_y).blocking) {
+                    graphics.draw(rect, {255,255,255,100}, true);
                 }
             }
         }
@@ -216,6 +223,9 @@ void LevelDesigner::save() {
 
 void LevelDesigner::place_player() {
     level.player_spawn_location = selected_tile;
+}
+void LevelDesigner::place_player_reverse() {
+    level.player_reverse_spawn_location = selected_tile;
 }
 
 void LevelDesigner::place_enemy(std::string enemy_name) {
