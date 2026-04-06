@@ -14,6 +14,7 @@ public:
     void save();
     void place_player();
     void place_player_reverse();
+    void place_out_treasure();
     void place_enemy(std::string enemy_name);
 
 private:

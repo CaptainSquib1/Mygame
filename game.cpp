@@ -60,6 +60,12 @@ void Game::update() {
         if (world->back_level && current_level!=0) {
             load_level("previous");
         }
+        if (world->treasure_level) {
+            load_level("treasure");
+        }
+        if (world->end_treasure_level) {
+            load_level("treasure_out");
+        }
     }
 }
 
@@ -87,7 +93,9 @@ void Game::get_events() {
     events["next_level"] = new NextLevel();
     events["previous_level"] = new PreviousLevel();
     events["treasure_room"] = new TreasureRoom();
+    events["treasure_room_out"] = new OutTreasureRoom();
     events["spiked"] = new Spikes();
+    events["in_water"] = new Water();
 }
 
 void Game::load_level(auto direction) {
@@ -97,6 +105,12 @@ void Game::load_level(auto direction) {
     }
     else if (direction == "previous") {
         level_name = "level_" + std::to_string(--current_level);
+    }
+    else if (direction == "treasure") {
+        level_name = "treasure_room";
+    }
+    else if (direction == "treasure_out") {
+        level_name = "level_"+std::to_string(current_level);
     }
     else {
         level_name = "level_" + std::to_string(current_level);
@@ -116,6 +130,9 @@ void Game::load_level(auto direction) {
     }
     else if (direction == "next") {
         player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
+    }
+    else if (direction == "treasure_out") {
+        player->physics.position = {static_cast<float>(level.out_treasure_location.x), static_cast<float>(level.out_treasure_location.y)};
     }
     else {
         player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};

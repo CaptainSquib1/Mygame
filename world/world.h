@@ -30,6 +30,8 @@ public:
     Tilemap tilemap;
     bool end_level{false};
     bool back_level{false};
+    bool treasure_level{false};
+    bool end_treasure_level{false};
 
 
     GameObject* player;

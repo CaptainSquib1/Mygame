@@ -96,6 +96,9 @@ void LevelDesigner::input() {
     if (keys[SDL_SCANCODE_R]) {
         place_player_reverse();
     }
+    if (keys[SDL_SCANCODE_T]) {
+        place_out_treasure();
+    }
     if (keys[SDL_SCANCODE_1]) {
         place_enemy("evillizard");
     }
@@ -107,6 +110,9 @@ void LevelDesigner::input() {
     }
     if (keys[SDL_SCANCODE_4]) {
         place_enemy("rock");
+    }
+    if (keys[SDL_SCANCODE_5]) {
+        place_enemy("robot");
     }
 
     // timer for scrolling
@@ -161,6 +167,9 @@ void LevelDesigner::render() {
                 }
                 if (level.player_reverse_spawn_location.x == tilemap_x && level.player_reverse_spawn_location.y == tilemap_y) {
                     graphics.draw(rect, {0, 255, 0, 100}, true);
+                }
+                if (level.out_treasure_location.x == tilemap_x && level.out_treasure_location.y == tilemap_y) {
+                    graphics.draw(rect, {0, 0, 255, 100}, true);
                 }
                 //draw transparent yellow if there is an enemy
                 if (level.enemy_locations.contains({static_cast<float>(tilemap_x), static_cast<float>(tilemap_y)})) {
@@ -226,6 +235,9 @@ void LevelDesigner::place_player() {
 }
 void LevelDesigner::place_player_reverse() {
     level.player_reverse_spawn_location = selected_tile;
+}
+void LevelDesigner::place_out_treasure() {
+    level.out_treasure_location = selected_tile;
 }
 
 void LevelDesigner::place_enemy(std::string enemy_name) {

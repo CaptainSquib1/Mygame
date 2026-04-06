@@ -14,9 +14,16 @@ void PreviousLevel::perform(World &world, GameObject& obj) {
 }
 
 void TreasureRoom::perform(World &world, GameObject &obj) {
-    std::cout << "treasureRoom\n";
+    world.treasure_level = true;
+}
+void OutTreasureRoom::perform(World &world, GameObject &obj) {
+    world.end_treasure_level = true;
 }
 
 void Spikes::perform(World &world, GameObject &obj) {
     std::cout << "spiked\n";
+}
+
+void Water::perform(World &world, GameObject &obj) {
+    std::cout << "water\n";
 }

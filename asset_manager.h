@@ -28,6 +28,7 @@ inline void to_json(nlohmann::json& j, const Level& level) {
     j["tile_filenames"] = level.tile_filenames;
     j["player_spawn_location"] = level.player_spawn_location;
     j["player_reverse_spawn_location"] = level.player_reverse_spawn_location;
+    j["out_treasure_location"] = level.out_treasure_location;
     j["tiles"] = nlohmann::json::array();
     for (const auto& [pos, tile] : level.tile_locations) {
         j["tiles"].push_back({
@@ -48,6 +49,7 @@ inline void from_json(const nlohmann::json& j, Level& level) {
     level.tile_filenames = j.at("tile_filenames").get<std::vector<std::string>>();
     level.player_spawn_location = j.contains("player_spawn_location") ? j.at("player_spawn_location").get<Vec<int>>() : Vec<int>{-1, -1};
     level.player_reverse_spawn_location = j.contains("player_reverse_spawn_location") ? j.at("player_reverse_spawn_location").get<Vec<int>>() : Vec<int>{-1, -1};
+    level.out_treasure_location = j.contains("out_treasure_location") ? j.at("out_treasure_location").get<Vec<int>>() : Vec<int>{-1, -1};
     if (j.contains("tiles")) {
         for (const auto& t : j.at("tiles")) {
             Vec<int> pos = t.at("pos").get<Vec<int>>();

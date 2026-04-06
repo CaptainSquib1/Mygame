@@ -35,3 +35,13 @@ class Spikes : public Event {
 public:
     void perform(World &world, GameObject &obj) override;
 };
+
+class Water : public Event {
+public:
+    void perform(World &world, GameObject &obj) override;
+};
+
+class OutTreasureRoom : public Event {
+public:
+    void perform(World &world, GameObject &obj) override;
+};

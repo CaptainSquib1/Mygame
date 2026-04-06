@@ -171,6 +171,19 @@
     },
     {
       "sprite": {
+        "name": "out_treasure_room",
+        "filename": "newlizardsprite.png",
+        "location": [32, 144],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": "treasure_room_out"
+    },
+    {
+      "sprite": {
         "name": "spike",
         "filename": "newlizardsprite.png",
         "location": [48, 128],
@@ -259,6 +272,58 @@
       },
       "blocking": true,
       "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "block-metal",
+        "filename": "newlizardsprite.png",
+        "location": [112, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "blocking-sheet",
+        "filename": "newlizardsprite.png",
+        "location": [128, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": true,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "metal-sheet",
+        "filename": "newlizardsprite.png",
+        "location": [128, 128],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": ""
+    },
+    {
+      "sprite": {
+        "name": "water",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
     }
   ]
 }

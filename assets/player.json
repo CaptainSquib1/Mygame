@@ -24,7 +24,7 @@
       "location" : [0,32],
       "size" : [16,16],
       "scale" : 4,
-      "number_of_frames" : 2,
+      "number_of_frames" : 1,
       "dt_per_frame" : 0.1
     },
     {

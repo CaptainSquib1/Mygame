@@ -23,5 +23,6 @@ public:
 
     Vec<int> player_spawn_location{-1, -1};
     Vec<int> player_reverse_spawn_location{-1, -1};
+    Vec<int> out_treasure_location{-1, -1};
     EnemyLocations enemy_locations;
 };
