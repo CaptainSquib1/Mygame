@@ -5,8 +5,8 @@
         2
     ],
     "player_reverse_spawn_location": [
-        -1,
-        -1
+        7,
+        5
     ],
     "player_spawn_location": [
         4,
@@ -866,6 +866,13 @@
         {
             "pos": [
                 8,
+                1
+            ],
+            "tile": "nature-tiles.json:water"
+        },
+        {
+            "pos": [
+                8,
                 2
             ],
             "tile": "nature-tiles.json:sand"
@@ -960,6 +967,13 @@
                 0
             ],
             "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                9,
+                1
+            ],
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [
@@ -1058,6 +1072,13 @@
                 0
             ],
             "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                10,
+                1
+            ],
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [
@@ -1156,6 +1177,13 @@
                 0
             ],
             "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                11,
+                1
+            ],
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [

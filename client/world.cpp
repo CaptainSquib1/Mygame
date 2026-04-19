@@ -1,8 +1,6 @@
 #include "world.h"
 #include <SDL3/SDL_rect.h>
 #include <algorithm>
-#include <iostream>
-
 #include "game_object.h"
 #include "fsm.h"
 #include "states.h"
@@ -13,12 +11,7 @@
 #include "audio.h"
 #include "events.h"
 
-World::World(const Level& level, Audio& audio, GameObject* player, Events events)
-    : tilemap{level.width, level.height}, audio{&audio},
-        events{events}, player{player},
-        quadtree{AABB{{level.width / 2.0f, level.height/2.0f},
-            {level.width / 2.0f, level.height/2.0f}}}
-{
+World::World(const Level& level, Audio& audio, GameObject* player, Events events) : tilemap{level.width, level.height}, audio{&audio}, events{events}, player{player}{
     load_level(level);
 }
 
@@ -160,26 +153,6 @@ void World::update(float dt) {
 
         touch_tiles(*obj);
     }
-
-    // check for collision with the player
-    build_quadtree();
-    std::vector<GameObject*> collide_with = quadtree.query_range(player->get_bounding_box());
-    for (auto& obj : collide_with) {
-        if (obj == player) continue;
-        player->take_damage(obj->damage);
-    }
-
-    // check for dead objects and remove them
-    auto itr = std::remove_if(std::begin(game_objects), std::end(game_objects),
-            [](GameObject* obj) {return !obj->is_alive;}
-    );
-    game_objects.erase(itr, std::end(game_objects));
-
-    // check for player death
-    if (!player->is_alive) {
-        end_game = true;
-        return;
-    }
 }
 
 void World::load_level(const Level &level) {
@@ -219,13 +192,6 @@ void World::touch_tiles(GameObject &obj) {
             }
             itr->second->perform(*this, obj);
         }
-    }
-}
-
-void World::build_quadtree() {
-    quadtree.clear();
-    for (auto obj : game_objects) {
-        quadtree.insert(obj);
     }
 }
 

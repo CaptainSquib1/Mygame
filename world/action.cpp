@@ -35,3 +35,7 @@ void SwingLeft::perform(World&, GameObject& obj) {
 void ParticleActivate::perform(World &, GameObject &obj) {
 
 }
+
+void AttackAll::perform(World &, GameObject &obj) {
+
+}

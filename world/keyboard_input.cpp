@@ -3,7 +3,7 @@
 #include "fsm.h"
 
 void KeyboardInput::get_input() {
-    if (next_action_type == ActionType::Jump) return;
+    if (next_action_type == ActionType::Jump || next_action_type == ActionType::Crouch || next_action_type == ActionType::AttackAll) return;
     const bool *key_states = SDL_GetKeyboardState(NULL);
 
     if (key_states[SDL_SCANCODE_A] || key_states[SDL_SCANCODE_LEFT]) {
@@ -50,6 +50,9 @@ void KeyboardInput::collect_discrete_event(SDL_Event *event) {
         }
         if (event->key.scancode == SDL_SCANCODE_LCTRL) {
             next_action_type = ActionType::Crouch;
+        }
+        if (event->key.scancode == SDL_SCANCODE_M) {
+            next_action_type = ActionType::AttackAll;
         }
     }
 }

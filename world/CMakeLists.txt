@@ -13,7 +13,17 @@ add_library(world
         level.cpp level.h
         audio.cpp audio.h
         events.cpp events.h
+        NetworkInput.cpp NetworkInput.h
+        ../json.hpp
+        quadtree.cpp quadtree.h
 )
+
+target_include_directories(world PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${asio_SOURCE_DIR}/asio/include
+)
+target_compile_definitions(world PUBLIC ASIO_STANDALONE)
+
 
 target_include_directories(world PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(world PUBLIC SDL3::SDL3 SDL3_mixer::SDL3_mixer utils graphics)

@@ -7,12 +7,12 @@
             "size" : [16, 16],
             "scale" : 4,
             "number_of_frames" : 4,
-            "dt_per_frame" : 0.1
+            "dt_per_frame" : 0.3
         },
         {
             "name" : "walking",
             "filename" : "newlizardsprite.png",
-            "location" : [336, 0],
+            "location" : [336, 16],
             "size" : [16, 16],
             "scale" : 4,
             "number_of_frames" : 4,
@@ -28,5 +28,8 @@
         "jump_velocity": 20.0,
         "terminal_velocity": 30.0
     },
-    "size" : [1,1]
+    "size" : [1,1],
+    "health" : 10,
+    "max_health" : 10,
+    "damage" : 2
 }

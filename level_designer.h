@@ -25,6 +25,7 @@ private:
     Vec<int> selected_tile{-1, -1};
     int y_min{0};
     int x_min{0};
+    int scroll_row{0};
     std::vector<std::string> palette_ids;
     std::string selected_palette_id;
 

@@ -7,7 +7,6 @@
 
 #include "audio.h"
 #include "events.h"
-#include "quadtree.h"
 #include "tilemap.h"
 #include "vec.h"
 
@@ -34,8 +33,6 @@ public:
     bool treasure_level{false};
     bool end_treasure_level{false};
 
-    bool end_game{false};
-
 
     GameObject* player;
     GameObject* network_player;
@@ -44,7 +41,4 @@ public:
     std::vector<GameObject*> game_objects;
 
     void touch_tiles(GameObject& obj);
-    void build_quadtree();
-
-    QuadTree quadtree;
 };

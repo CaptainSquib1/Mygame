@@ -6,17 +6,21 @@
 #include "game_object.h"
 
 void NextLevel::perform(World &world, GameObject &obj) {
+    if (&obj != world.player) return;
     world.end_level = true;
 }
 
 void PreviousLevel::perform(World &world, GameObject& obj) {
+    if (&obj != world.player) return;
     world.back_level = true;
 }
 
 void TreasureRoom::perform(World &world, GameObject &obj) {
+    if (&obj != world.player) return;
     world.treasure_level = true;
 }
 void OutTreasureRoom::perform(World &world, GameObject &obj) {
+    if (&obj != world.player) return;
     world.end_treasure_level = true;
 }
 

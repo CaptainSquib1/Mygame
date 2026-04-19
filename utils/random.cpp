@@ -12,6 +12,11 @@ Xoshiro256Plus& get_rng() {
     }();
     return generator;
 }
+int randint(int min , int max ) {
+    static std::random_device rd;
+    static std::default_random_engine ran{rd()};
+    return std::uniform_int_distribution<>{min, max}(ran);
+}
 
 float random_float() {
     return get_rng().random_float();

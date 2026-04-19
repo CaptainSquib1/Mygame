@@ -2,13 +2,13 @@
 #include "asset_manager.h"
 
 const int TILESIZE = 64;
-const int VISIBLE_MAP_WIDTH = 14;
-const int VISIBLE_MAP_HEIGHT = 12;
-constexpr int COLUMNS = 5;
+const int VISIBLE_MAP_WIDTH = 14*2;
+const int VISIBLE_MAP_HEIGHT = 12*2;
+constexpr int COLUMNS = 8;
 constexpr float PADDING = 16.0f;
 
 LevelDesigner::LevelDesigner(const std::string &level_name, int width, int height)
-    : graphics{"Level Designer", 1280, 720}, tilemap{width, height}, level{level_name},
+    : graphics{"Level Designer", 1280*2, 720*2}, tilemap{width, height}, level{level_name},
     dt{0.1}, performance_frequency{SDL_GetPerformanceFrequency()}, prev_counter{SDL_GetPerformanceCounter()}, lag{0.0},
     display_rect{0.0f, 0.0f, graphics.width*(2.0f/3.0f), static_cast<float>(graphics.height)},
     tiles_rect{graphics.width*(2.0f/3.0f), 0.0f, graphics.width*(1.0f/3.0f), static_cast<float>(graphics.height)}{
@@ -67,13 +67,31 @@ void LevelDesigner::handle_event(SDL_Event *event) {
             if (x_pos >= 0 && y_pos >= 0) {
                 int col = x_pos / (TILESIZE + PADDING);
                 int row = y_pos / (TILESIZE + PADDING);
-                int index = row * COLUMNS + col;
+                int index = (row + scroll_row) * COLUMNS + col;
                 selected_palette_id = index < palette_ids.size() ? palette_ids.at(index) : "";
                 update_tilemap();
             }
         }
     }
+
+    float mouse_x, mouse_y;
+    SDL_GetMouseState(&mouse_x, &mouse_y);
+    const bool* keys = SDL_GetKeyboardState(nullptr);
+    if (mouse_x > tiles_rect.x) {
+        int total_rows = (palette_ids.size() + COLUMNS - 1) / COLUMNS;
+        int visible_rows = (tiles_rect.h - PADDING) / (TILESIZE + PADDING);
+        int max_scroll = std::max(0, total_rows - visible_rows);
+
+        if (keys[SDL_SCANCODE_PAGEDOWN]) {
+            scroll_row += 1;
+        }
+        if (keys[SDL_SCANCODE_PAGEUP]) {
+            scroll_row -= 1;
+        }
+
+    }
 }
+
 
 void LevelDesigner::input() {
     Uint64 now = SDL_GetPerformanceCounter();
@@ -192,12 +210,17 @@ void LevelDesigner::render() {
 }
 
 void LevelDesigner::draw_tile_display() {
+    int visible_rows =(tiles_rect.h - PADDING) / (TILESIZE + PADDING);
+
     for (int i = 0; i < palette_ids.size(); ++i) {
         int col = i % COLUMNS;
         int row = i / COLUMNS;
 
+        if (row < scroll_row || row >= scroll_row + visible_rows) continue;
+
+        int visible_row = row - scroll_row;
         float x = tiles_rect.x + PADDING + col * (TILESIZE + PADDING);
-        float y = tiles_rect.y + PADDING + row * (TILESIZE + PADDING);
+        float y = tiles_rect.y + PADDING + visible_row * (TILESIZE + PADDING);
 
         const std::string id = palette_ids.at(i);
         Tile& tile = level.tile_types.at(id);

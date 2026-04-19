@@ -12,15 +12,10 @@ Game::Game(std::string title, int width, int height)
     //load events
     get_events();
     //load level
-    Level level{"level_0"};
-    AssetManager::get_level_details(graphics, level);
-
 
     //create player
     create_player();
     AssetManager::get_game_object_details("player", graphics, *player);
-    //world
-    world = new World(level, audio, player.get(), events);
 
     load_level("stay");
 }
@@ -33,11 +28,25 @@ Game::~Game() {
 }
 
 void Game::handle_event(SDL_Event* event) {
-    player->input->collect_discrete_event(event);
+    switch (mode) {
+        case GameMode::Playing:
+        player->input->collect_discrete_event(event);
+        break;
+    }
+
 }
 void Game::input() {
-    player->input->get_input();
-    camera.handle_input();
+    switch (mode) {
+        case GameMode::Playing:
+        player->input->get_input();
+        camera.handle_input();
+        break;
+    }
+}
+
+void Game::network_input() {
+        network_player->input->handle_input(*world, *player);
+
 }
 
 void Game::update() {
@@ -45,60 +54,68 @@ void Game::update() {
     lag += (now - prev_counter) / (float)performance_frequency;
     prev_counter = now;
     while (lag >= dt) {
-        player->input->handle_input(*world, *player);
-        player->update(*world,dt);
-        world->update(dt);
+        switch (mode) {
+            case GameMode::Playing:
+            player->input->handle_input(*world, *player);
+            world->update(dt);
 
-        //put camera slightly ahead of player
-        float L = length(player->physics.velocity);
-        Vec displacement = 8.0f * player->physics.velocity / (1.0f + L); // change first float for distance ahead
-        camera.update(player->physics.position + displacement, dt);
+            //put camera slightly ahead of player
+            float L = length(player->physics.velocity);
+            Vec displacement = 8.0f * player->physics.velocity / (1.0f + L); // change first float for distance ahead
+            camera.update(player->physics.position + displacement, dt);
+
+            if (world->end_level&&current_level!=2) {
+                load_level("next");
+            }
+            if (world->back_level && current_level!=0) {
+                load_level("previous");
+            }
+            if (world->treasure_level) {
+                load_level("treasure");
+            }
+            if (world->end_treasure_level) {
+                load_level("treasure_out");
+            }
+            break;
+        }
         lag -= dt;
-        if (world->end_level&&current_level!=2) {
-            load_level("next");
-        }
-        if (world->back_level && current_level!=0) {
-            load_level("previous");
-        }
-        if (world->treasure_level) {
-            load_level("treasure");
-        }
-        if (world->end_treasure_level) {
-            load_level("treasure_out");
-        }
     }
+
 }
 
 void Game::render() {
+        //clear screen
+        graphics.clear();
 
-    //clear screen
-    graphics.clear();
+        //draw world
+        camera.render(world->tilemap);
 
-    //draw world
-    camera.render(world->tilemap);
+        //draw player
+        camera.render(*player);
 
-    //draw player
-    camera.render(*player);
+        //enemies
+        for (auto& obj : world->game_objects) {
+            camera.render(*obj);
+        }
 
-    //enemies
-    for (auto& obj : world->game_objects) {
-        camera.render(obj);
-    }
+        //update
+        graphics.update();
 
-    //update
-    graphics.update();
 }
 
 void Game::get_events() {
-    events["next_level"] = new NextLevel();
-    events["previous_level"] = new PreviousLevel();
-    events["treasure_room"] = new TreasureRoom();
-    events["treasure_room_out"] = new OutTreasureRoom();
-    events["spiked"] = new Spikes();
-    events["in_water"] = new Water();
+
+        events["next_level"] = new NextLevel();
+        events["previous_level"] = new PreviousLevel();
+        events["treasure_room"] = new TreasureRoom();
+        events["treasure_room_out"] = new OutTreasureRoom();
+        events["spiked"] = new Spikes();
+        events["in_water"] = new Water();
+
 }
 
 void Game::load_level(auto direction) {
+
     std::string level_name;
     if (direction == "next") {
         level_name = "level_" + std::to_string(++current_level);
@@ -123,7 +140,8 @@ void Game::load_level(auto direction) {
     world = new World(level, audio, player.get(), events);
     // assets for objs
     for (auto& obj : world->game_objects) {
-        AssetManager::get_game_object_details(obj.obj_name + "-enemy", graphics, obj);
+        if (obj == world->player) continue;
+        AssetManager::get_game_object_details(obj->obj_name + "-enemy", graphics, *obj, true);
     }
     if (direction == "previous") {
         player->physics.position = {static_cast<float>(level.player_reverse_spawn_location.x), static_cast<float>(level.player_reverse_spawn_location.y)};
@@ -149,6 +167,7 @@ void Game::create_player() {
         {{StateType::Standing, Transition::Crouch}, StateType::Crouching},
         {{StateType::Standing, Transition::Jump}, StateType::InAir},
         {{StateType::Standing, Transition::Move}, StateType::Walking},
+        {{StateType::Standing, Transition::AttackAll}, StateType::AttackAll},
         // Walking to "Something"
         {{StateType::Walking, Transition::Stop}, StateType::Standing},
         {{StateType::Walking, Transition::Crouch}, StateType::Crouching},
@@ -167,6 +186,8 @@ void Game::create_player() {
         {{StateType::Crouching, Transition::Stop}, StateType::Standing},
         {{StateType::Crouching, Transition::Move}, StateType::Walking},
         {{StateType::Crouching, Transition::Jump}, StateType::InAir},
+        // Attack to something
+        {{StateType::AttackAll, Transition::Stop}, StateType::Standing}
     };
     States states = {
         {StateType::Standing, new Standing()},
@@ -175,12 +196,15 @@ void Game::create_player() {
         {StateType::Dashing, new Dashing()},
         {StateType::Crouching, new Crouching()},
         {StateType::Swinging, new Swinging()},
+        {StateType::AttackAll, new AttackAllEnemies()},
     };
     FSM* fsm = new FSM(transitions, states, StateType::Standing);
 
     //player input
     KeyboardInput* input = new KeyboardInput;
 
-    player = std::make_unique<GameObject>("player", fsm, input, Color{255,255,0,255});
+    KeyboardInput* network_player_input = new KeyboardInput;
 
+    player = std::make_unique<GameObject>("player", fsm, input, Color{255,255,0,255});
+    network_player = std::make_unique<GameObject>("network_player", fsm, network_player_input, Color{255,0,0,255});
 }

@@ -85,10 +85,10 @@ void Camera::render(const Tilemap &tilemap) const {
     }
 }
 
-void Camera::render(const Vec<float> &position, const Sprite &sprite, bool flash) const {
+void Camera::render(const Vec<float> &position, const Sprite &sprite) const {
     Vec<float> pixel = world_to_screen(position);
     pixel.y += tilesize/2;
-    graphics.draw_sprite(pixel,sprite, flash);
+    graphics.draw_sprite(pixel,sprite);
 }
 
 void Camera::render(const GameObject &obj) const {
@@ -96,5 +96,5 @@ void Camera::render(const GameObject &obj) const {
         render(obj.physics.position, obj.color);
     }
 
-    render(obj.physics.position, obj.sprite, obj.flash_sprite());
+    render(obj.physics.position, obj.sprite);
 }

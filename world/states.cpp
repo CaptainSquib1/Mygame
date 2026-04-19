@@ -23,6 +23,9 @@ void Standing::on_enter(World &, GameObject & obj) {
 }
 
 Action *Standing::input(World& world, GameObject& obj, ActionType action_type) {
+    if (action_type == ActionType::AttackAll) {
+        obj.fsm->transition(Transition::AttackAll, world,obj);
+    }
     if (action_type == ActionType::Jump) {
         obj.fsm->transition(Transition::Jump, world,obj);
         return new Jump();
@@ -194,6 +197,25 @@ Action *Crouching::input(World &world, GameObject &obj, ActionType action_type) 
 
 void Crouching::on_exit(World &, GameObject &obj) {
 
+}
+//Attack All
+void AttackAllEnemies::on_enter(World &world, GameObject &obj) {
+    obj.set_sprite("attacking");
+    obj.color ={255,255,255,255};
+    for (auto& enemy: world.game_objects) {
+        if (enemy == world.player) continue;
+        enemy->take_damage(obj.damage);
+    }
+    elapsed = 0;
+}
+
+void AttackAllEnemies::update(World &world, GameObject &obj, double dt) {
+    elapsed += dt;
+    if (elapsed >= cooldown) {
+        obj.fsm->transition(Transition::Stop, world, obj);
+    }
+}
+void AttackAllEnemies::on_exit(World &, GameObject &obj) {
 }
 
 

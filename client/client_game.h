@@ -2,20 +2,16 @@
 #include "camera.h"
 #include "game_object.h"
 #include "world.h"
-#include "fsm.h"
 #include "audio.h"
 #include "events.h"
 
 
-enum class GameMode{Playing, GameOver};
-
-class Game {
+class Client_Game {
 public:
-    Game(std::string title, int width, int height);
-    ~Game();
+    Client_Game(std::string title, int width, int height);
+    ~Client_Game();
     void handle_event(SDL_Event* event);
     void input();
-    void update();
     void render();
 
 private:
@@ -29,22 +25,8 @@ private:
     Uint64 performance_frequency;
     Uint64 prev_counter;
     float lag;
+
     Camera camera;
     Audio audio;
 
-    //events
-    Events events;
-    void get_events();
-
-    //level help
-    void create_player();
-    int current_level{0};
-    void load_level(auto direction);
-
-    //network
-    void network_input();
-    // void network_update
-
-
-    GameMode mode{GameMode::Playing};
 };

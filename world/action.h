@@ -11,6 +11,7 @@ enum class ActionType {
     SwingLeft,
     SwingRight,
     ParticleActivate,
+    AttackAll
 
 };
 
@@ -53,5 +54,8 @@ class SwingRight : public Action {
 };
 
 class ParticleActivate : public Action {
+    void perform(World&, GameObject& obj) override;
+};
+class AttackAll : public Action {
     void perform(World&, GameObject& obj) override;
 };

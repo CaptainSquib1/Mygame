@@ -324,6 +324,242 @@
       },
       "blocking": false,
       "event_name": "in_water"
+    },
+
+
+    {
+      "sprite": {
+        "name": "water25",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water24",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water23",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water3",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water4",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water5",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water6",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water7",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water8",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water9",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water0",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water1",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water2",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water26",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water27",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water28",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water29",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
+    },
+    {
+      "sprite": {
+        "name": "water30",
+        "filename": "newlizardsprite.png",
+        "location": [0, 160],
+        "size": [16, 16],
+        "scale": 4,
+        "number_of_frames": 1,
+        "dt_per_frame": -1
+      },
+      "blocking": false,
+      "event_name": "in_water"
     }
   ]
 }

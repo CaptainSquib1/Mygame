@@ -66,7 +66,7 @@ int Graphics::get_texture_id(const std::string& image_filename) {
     }
 }
 
-void Graphics::draw_sprite(const Vec<float> &pixel, const Sprite &sprite, bool flash) {
+void Graphics::draw_sprite(const Vec<float> &pixel, const Sprite &sprite) {
     if (sprite.texture_id < 0) { // sprite has no texture
         return;
     }
@@ -80,15 +80,5 @@ void Graphics::draw_sprite(const Vec<float> &pixel, const Sprite &sprite, bool f
     SDL_FRect image_pixels{sprite.location.x, sprite.location.y, sprite.size.x, sprite.size.y};
     SDL_Texture* texture = textures.at(sprite.texture_id);
     SDL_FlipMode flip = sprite.flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-
-    if (flash) {
-        SDL_SetTextureColorMod(texture,255,255,255);
-        SDL_SetTextureAlphaMod(texture,160);
-    }
     SDL_RenderTextureRotated(renderer, texture, &image_pixels, &screen_pixels, sprite.angle, &center, flip);
-
-    if (flash) {
-        SDL_SetTextureColorMod(texture,255,255,255);
-        SDL_SetTextureAlphaMod(texture,255);
-    }
 }
