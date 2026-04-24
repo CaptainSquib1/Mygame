@@ -30,7 +30,11 @@ Game::~Game() {
 void Game::handle_event(SDL_Event* event) {
     switch (mode) {
         case GameMode::Playing:
-        player->input->collect_discrete_event(event);
+            auto action = player->input->collect_discrete_event(event);
+            if (action) {
+                action->perform(*world, *player);
+                delete action;
+            }
         break;
     }
 
@@ -76,6 +80,10 @@ void Game::update() {
             if (world->end_treasure_level) {
                 load_level("treasure_out");
             }
+
+                if (world->end_game) {
+                    mode = GameMode::GameOver;
+                }
             break;
         }
         lag -= dt;
@@ -96,6 +104,14 @@ void Game::render() {
         //enemies
         for (auto& obj : world->game_objects) {
             camera.render(*obj);
+        }
+
+        for (auto& projectile : world->projectiles) {
+            camera.render(*projectile);
+        }
+
+        if (mode == GameMode::GameOver) {
+            camera.render_game_over();
         }
 
         //update
@@ -138,6 +154,8 @@ void Game::load_level(auto direction) {
     // create the world
     delete world;
     world = new World(level, audio, player.get(), events);
+    //get available items
+    AssetManager::get_available_items("items", graphics, *world);
     // assets for objs
     for (auto& obj : world->game_objects) {
         if (obj == world->player) continue;

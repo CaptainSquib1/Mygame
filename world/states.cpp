@@ -1,7 +1,7 @@
 #include "states.h"
 #include "action.h"
 #include "game_object.h"
-
+#include "random.h"
 
 
 // helper function
@@ -215,9 +215,28 @@ void AttackAllEnemies::update(World &world, GameObject &obj, double dt) {
         obj.fsm->transition(Transition::Stop, world, obj);
     }
 }
-void AttackAllEnemies::on_exit(World &, GameObject &obj) {
+void AttackAllEnemies::on_exit(World& , GameObject&) {
 }
 
+// Patrolling
+void Patrolling::on_enter(World& world, GameObject& obj) {
+    // set cooldown to a random amount of time 3-10sec
+    elapsed = 0;
+    cooldown = randint(3,10);
+    Walking::on_enter(world, obj);
+
+}
+
+Action *Patrolling::input(World &world, GameObject &obj, ActionType action_type) {
+    if (elapsed >= cooldown) {
+        return Walking::input(world, obj, ActionType::None);
+    }
+    return Walking::input(world, obj, action_type);
+}
+
+void Patrolling::update(World &, GameObject &, double dt) {
+    elapsed += dt;
+}
 
 // enum class StateType {Standing,InAir,Walking,Dashing,Swinging,Crouching};
 // enum class Transition {Jump,Stop,Move,Dash,Swing,Crouch};

@@ -16,6 +16,7 @@ add_library(world
         NetworkInput.cpp NetworkInput.h
         ../json.hpp
         quadtree.cpp quadtree.h
+        projectile.cpp projectile.h
 )
 
 target_include_directories(world PUBLIC

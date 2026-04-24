@@ -39,3 +39,13 @@ void ParticleActivate::perform(World &, GameObject &obj) {
 void AttackAll::perform(World &, GameObject &obj) {
 
 }
+
+void ThrowKnife::perform(World &world, GameObject &obj) {
+    Projectile* knife = dynamic_cast<Projectile*>(world.available_items["knife"]());
+    knife->physics.position = obj.physics.position;
+    if (obj.flipped) {
+        knife->physics.velocity.x = -knife->physics.velocity.x;
+    }
+    knife->physics.velocity.x = knife->physics.velocity.x;
+    world.projectiles.push_back(knife);
+}

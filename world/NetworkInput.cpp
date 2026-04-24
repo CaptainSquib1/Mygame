@@ -116,7 +116,7 @@ void NetworkInput::send_game_data(World &world) {
     }
 }
 
-void NetworkInput::collect_discrete_event(SDL_Event *event) {
+Action* NetworkInput::collect_discrete_event(SDL_Event *event) {
 
     if (event->type == SDL_EVENT_KEY_DOWN && event->key.repeat == 0) {
         if (event->key.scancode == SDL_SCANCODE_SPACE) {

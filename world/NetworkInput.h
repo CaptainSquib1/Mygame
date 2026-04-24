@@ -7,7 +7,7 @@ public:
     int create_connection();
     void translate_input();
     void send_game_data(World &world);
-    void collect_discrete_event(SDL_Event *event) override;
+    Action* collect_discrete_event(SDL_Event *event) override;
     void get_input() override;
     void handle_input(World &world, GameObject &obj) override;
 };

@@ -22,7 +22,7 @@ public:
     World(const Level& level, Audio& audio, GameObject* player, Events events);
     ~World();
     void add_platform(float x, float y, float width, float height);
-    void move_to(Vec<float>& position, const Vec<int>& size, Vec<float>& velocity);
+    void move_to(Vec<float>& position, const Vec<float>& size, Vec<float>& velocity);
     bool collides(const Vec<float>& position) const;
     void update(float dt);
     void load_level(const Level& level);

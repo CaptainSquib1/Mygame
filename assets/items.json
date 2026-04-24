@@ -1,0 +1,31 @@
+{
+    "projectiles":
+            [
+                {
+                    "name": "knife",
+                    "sprites" : [
+                        {
+                            "name" : "idle",
+                            "filename" : "newlizardsprite.png",
+                            "location" : [0, 176],
+                            "size" : [16, 16],
+                            "scale" : 4,
+                            "number_of_frames" : 4,
+                            "dt_per_frame" : 0.15
+                        }
+                    ],
+                    "physics" : {
+                        "velocity": [10, 0],
+                        "acceleration" : [0, 0],
+                        "gravity": -30.0,
+                        "damping": 1.0,
+                        "walk_acceleration": 60.0,
+                        "jump_velocity": 20.0,
+                        "terminal_velocity": 30.0
+                    },
+                    "damage" : 1,
+                    "lifetime" : 2,
+                    "size" : [1,1]
+                }
+            ]
+}

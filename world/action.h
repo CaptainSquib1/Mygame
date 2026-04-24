@@ -59,3 +59,7 @@ class ParticleActivate : public Action {
 class AttackAll : public Action {
     void perform(World&, GameObject& obj) override;
 };
+class ThrowKnife: public Action {
+    public:
+    void perform(World&, GameObject& obj) override;
+};
