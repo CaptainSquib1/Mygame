@@ -19,7 +19,7 @@ public:
     void clear();
     void update();
     void set_title(const std::string& title);
-
+    Sprite load_image(const std::string& filename);
     int get_texture_id(const std::string& image_filename);
     void draw_sprite(const Vec<float>& pixel, const Sprite& sprite, bool flash=false);
 

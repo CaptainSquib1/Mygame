@@ -63,11 +63,23 @@ void AssetManager::get_game_object_details(const std::string& name, Graphics& gr
 
 void convert_to_tiles(Graphics& graphics, Level &level, std::vector<Tile>& tiles, const std::string& filename) {
     for (auto& tile : tiles) {
+        auto first_location = tile.sprite.location;
         tile.sprite.filename = (std::filesystem::current_path() / "assets" / tile.sprite.filename).string();
         tile.sprite.texture_id = graphics.get_texture_id(tile.sprite.filename);
         tile.sprite.shift = {-tile.sprite.size.x/2, -tile.sprite.size.y}; // anchor sprite at bottom corner
         tile.sprite.center = tile.sprite.size / 2.0f;
         tile.id = filename + ":" +tile.sprite.name;
+
+        std::vector<Sprite> sprite_frames;
+        for (int i = 0; i < tile.sprite.number_of_frames; ++i) {
+            tile.sprite.location = {first_location.x + i * tile.sprite.size.x, first_location.y};
+            sprite_frames.push_back(tile.sprite);
+        }
+
+        tile.sprites[tile.sprite.name] = AnimatedSprite{sprite_frames, tile.sprite.dt_per_frame, 0};
+        tile.sprite_name = tile.sprite.name;
+
+
         level.tile_types[tile.id] = tile;
     }
 }
@@ -86,6 +98,11 @@ void AssetManager::get_level_details(Graphics &graphics, Level &level) {
 
     json.get_to(level);
 
+    // get sprites for backgrounds
+    for (auto& background : level.backgrounds) {
+        background.sprite = graphics.load_image(path_start / (background.filename));
+        background.sprite.scale = background.scale;
+    }
     // get all tile details from the file(s)
     for (auto filename : level.tile_filenames) {
         auto tiles_path = path_start / filename;

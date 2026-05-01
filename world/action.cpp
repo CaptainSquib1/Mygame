@@ -3,8 +3,9 @@
 #include "particle_system.h"
 #include "world.h"
 
-void Jump::perform(World&, GameObject& obj) {
+void Jump::perform(World& world, GameObject& obj) {
     obj.physics.velocity.y = obj.physics.jump_velocity;
+    world.audio->play_sound("jump");
 }
 
 void MoveRight::perform(World&, GameObject& obj) {
@@ -13,11 +14,13 @@ void MoveRight::perform(World&, GameObject& obj) {
 void MoveLeft::perform(World&, GameObject& obj) {
     obj.physics.acceleration.x = -obj.physics.walk_acceleration;
 }
-void DashRight::perform(World&, GameObject& obj) {
+void DashRight::perform(World& world, GameObject& obj) {
     obj.physics.velocity.x += obj.physics.dashing_velocity;
+    world.audio->play_sound("power");
 }
-void DashLeft::perform(World&, GameObject& obj) {
+void DashLeft::perform(World& world, GameObject& obj) {
     obj.physics.velocity.x += -obj.physics.dashing_velocity;
+    world.audio->play_sound("power");
 }
 
 void Crouch::perform(World&, GameObject& obj) {
@@ -48,4 +51,5 @@ void ThrowKnife::perform(World &world, GameObject &obj) {
     }
     knife->physics.velocity.x = knife->physics.velocity.x;
     world.projectiles.push_back(knife);
+    world.audio->play_sound("knife");
 }

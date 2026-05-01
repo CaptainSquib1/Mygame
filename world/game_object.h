@@ -20,7 +20,8 @@ using Sprites = std::pmr::map<std::string, AnimatedSprite>;
 class GameObject {
 public:
     GameObject(std::string name, FSM* fsm, Input* input, Color color={0,0,0,1});
-    ~GameObject();
+
+    virtual ~GameObject();
 
     virtual void update(World& world, double dt);
     std::pair<Vec<float>, Color> get_sprite() const;

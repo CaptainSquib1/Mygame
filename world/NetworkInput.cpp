@@ -1,130 +1,87 @@
 #include "NetworkInput.h"
-#include "game_object.h"
+
+#include <cstring>
+#include <iostream>
 #include <sys/socket.h>
-#include "json.hpp"
 #include <arpa/inet.h>
-#include <filesystem>
-#include <fstream>
+#include "json.hpp"
 
-#include "world.h"
-using json = nlohmann::json;
-
-
-
+#include "action.h"
 #include "fsm.h"
+#include "game_object.h"
+#include "world.h"
+#include <mutex>
 
-void NetworkInput::get_input() {
 
-    // if (next_action_type == ActionType::Jump) return;
-    // const bool *key_states = SDL_GetKeyboardState(NULL);
-
-    // if (left) {
-    //     if (key_states[SDL_SCANCODE_LALT]) {
-    //         next_action_type = ActionType::DashLeft;
-    //     }
-    //     else if (key_states[SDL_SCANCODE_LSHIFT]) {
-    //         next_action_type = ActionType::SwingLeft;
-    //     }
-    //     else {
-    //         next_action_type = ActionType::MoveLeft;
-    //     }
-    // }
-    // if (key_states[SDL_SCANCODE_D] || key_states[SDL_SCANCODE_RIGHT]) {
-    //     if (key_states[SDL_SCANCODE_LALT]) {
-    //         next_action_type = ActionType::DashRight;
-    //     }
-    //     else if (key_states[SDL_SCANCODE_LSHIFT]) {
-    //         next_action_type = ActionType::SwingRight;
-    //     }
-    //     else {
-    //         next_action_type = ActionType::MoveRight;
-    //     }
-    //
-    // }
-
-}
-
-void NetworkInput::handle_input(World &world, GameObject &obj) {
-
-    // Action* action = obj.fsm->current_state->input(world, obj, next_action_type);
-    //
-    // // consume action
-    // next_action_type = ActionType::None;
-    // if (action != nullptr) {
-    //     action->perform(world, obj);
-    //     delete action;
-    // }
-
-}
-
-int NetworkInput::create_connection() {
-    std::string ip = "localhost"; //local Host for testing TODO: change to ip
-    int port = 5005;
-    auto  s = socket(AF_INET, SOCK_STREAM, 0);
-    if (s == -1) {
-        printf("Cannot create socket\n");
-        return 1;
-    }
+void NetworkInput::start_server() {
+    server_socket = socket(AF_INET, SOCK_DGRAM, 0); // SOCK_DGRAM for UDP
     int opt = 1;
-    setsockopt(s, SOL_SOCKET, SO_REUSEADDR, (const char*)&opt, sizeof(opt));
+    setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, (const char*)&opt, sizeof(opt));
 
     struct sockaddr_in server;
     server.sin_family = AF_INET;
-    server.sin_port = htons(port);
-    server.sin_addr.s_addr = inet_addr(ip.c_str());
+    server.sin_port = htons(5005);
+    server.sin_addr.s_addr = INADDR_ANY;
 
-    if (bind(s, (struct sockaddr*)&server, sizeof(server)) < 0) {
-        printf("Cannot setup server\n");
-        return 1;
-    }
+    bind(server_socket, (struct sockaddr*)&server, sizeof(server));
 
-    listen(s,1);
+    listener_thread = std::thread([this]() { listen_loop(); });
+    listener_thread.detach();
+}
 
-    struct sockaddr_in client;
-    socklen_t client_len = sizeof(client);
-    auto c = accept(s, (struct sockaddr*)&client, &client_len);
+void NetworkInput::listen_loop() {
+    std::mutex mtx;
     char buffer[4096];
+    socklen_t client_len = sizeof(client_addr);
 
-    if (recv(c, buffer, sizeof(buffer), 0)) {
-        printf("Connection received from client: %s\n", buffer);
-        auto message = "message received";
-        send(c, message, strlen(message), 0);
-
-    }
-
-}
-
-void NetworkInput::translate_input() {
-
-}
-
-void NetworkInput::send_game_data(World &world) {
-    auto path_start = std::filesystem::current_path() / "communication";
-    auto path = path_start/ ("outbound.json");
-
-    std::ifstream file(path);
-    if (!file) {
-        throw std::runtime_error("Could not open file: " + path.string());
-    }
-
-    nlohmann::json json;
-    file >> json;
-    for (auto objects : world.game_objects) {
-        // json.get<>();
+    while (true) {
+        memset(buffer, 0, sizeof(buffer));
+        int bytes = recvfrom(server_socket, buffer, sizeof(buffer), 0,
+                             (struct sockaddr*)&client_addr, &client_len);
+        if (bytes <= 0) continue;
 
 
-    }
-}
-
-Action* NetworkInput::collect_discrete_event(SDL_Event *event) {
-
-    if (event->type == SDL_EVENT_KEY_DOWN && event->key.repeat == 0) {
-        if (event->key.scancode == SDL_SCANCODE_SPACE) {
-            next_action_type = ActionType::Jump;
-        }
-        if (event->key.scancode == SDL_SCANCODE_LCTRL) {
-            next_action_type = ActionType::Crouch;
+        try {
+            auto action = bytes;
+            // auto j = nlohmann::json::parse(buffer);
+            // std::string action = j["action"];
+            // std::cout << action<< "\n";
+            if (action == 1000) {
+                std::lock_guard<std::mutex> lock(mtx);
+                pending_action = ActionType::MoveLeft;
+            }
+            else if (action == 1111) {
+                std::lock_guard<std::mutex> lock(mtx);
+                pending_action = ActionType::ThrowKnife;
+            }
+            else if (action == 0001) {
+                std::lock_guard<std::mutex> lock(mtx);
+                pending_action = ActionType::MoveRight;
+            }
+            else if (action == 0100) {
+                std::lock_guard<std::mutex> lock(mtx);
+                pending_action = ActionType::Jump;
+            }
+            else if (action == 0010) {
+                std::lock_guard<std::mutex> lock(mtx);
+                pending_action = ActionType::Crouch;
+            }
+        } catch (std::exception& e) {
+            std::cout << "Exception: " << e.what() << "\n";
         }
     }
 }
 
+void NetworkInput::get_input() {
+    next_action_type = pending_action;
+}
+
+void NetworkInput::handle_input(World& world, GameObject& obj) {
+    Action* action = obj.fsm->current_state->input(world, obj, next_action_type);
+    pending_action = ActionType::None;
+
+    if (action) {
+        action->perform(world, obj);
+        delete action;
+    }
+}

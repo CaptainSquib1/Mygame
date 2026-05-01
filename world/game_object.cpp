@@ -1,4 +1,7 @@
 #include "game_object.h"
+
+#include <iostream>
+
 #include "action.h"
 #include "input.h"
 
@@ -14,6 +17,7 @@ GameObject::GameObject(std::string name, FSM* fsm, Input* input, Color color)
 }
 
 GameObject::~GameObject() {
+    // std::cout << "GameObject::~GameObject()\n";
     delete fsm;
     delete input;
 }

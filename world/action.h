@@ -11,7 +11,8 @@ enum class ActionType {
     SwingLeft,
     SwingRight,
     ParticleActivate,
-    AttackAll
+    AttackAll,
+    ThrowKnife,
 
 };
 
@@ -25,38 +26,48 @@ public:
 };
 
 class Jump : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 
 class MoveRight : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 class MoveLeft : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 
 class DashRight : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 class DashLeft : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 
 class Crouch : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 
 class SwingLeft : public Action {
+public:
    void perform(World&, GameObject& obj) override;
 };
 class SwingRight : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 
 class ParticleActivate : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 class AttackAll : public Action {
+public:
     void perform(World&, GameObject& obj) override;
 };
 class ThrowKnife: public Action {

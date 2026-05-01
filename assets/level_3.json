@@ -1,4 +1,21 @@
 {
+    "backgrounds": [
+        {
+            "distance": 4.0,
+            "filename": "BG1.png",
+            "scale": 1.0
+        },
+        {
+            "distance": 2.0,
+            "filename": "BG2.png",
+            "scale": 1.0
+        },
+        {
+            "distance": 1.0,
+            "filename": "BG3.png",
+            "scale": 1.0
+        }
+    ],
     "height": 15,
     "out_treasure_location": [
         6,
@@ -11,6 +28,43 @@
     "player_spawn_location": [
         4,
         1
+    ],
+    "sounds": [
+        {
+            "filename": "brackeys_platformer_assets/music/time_for_adventure.mp3",
+            "loop_forever": true,
+            "name": "background"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/jump.wav",
+            "loop_forever": false,
+            "name": "jump"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/tap.wav",
+            "loop_forever": false,
+            "name": "knife"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/hurt.wav",
+            "loop_forever": false,
+            "name": "hurt"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/explosion.wav",
+            "loop_forever": false,
+            "name": "explosion"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/coin.wav",
+            "loop_forever": false,
+            "name": "coin"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/power_up.wav",
+            "loop_forever": false,
+            "name": "power"
+        }
     ],
     "tile_filenames": [
         "nature-tiles.json"
@@ -2555,7 +2609,7 @@
                 24,
                 2
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:win_tile"
         },
         {
             "pos": [

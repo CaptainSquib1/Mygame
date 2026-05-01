@@ -70,3 +70,13 @@ class Patrolling : public Walking {
     double elapsed {0.0};
     double cooldown {0.0};
 };
+
+class Watching : public Standing {
+public:
+    void on_enter(World& world, GameObject& obj) override;
+    Action* input(World& world, GameObject& obj, ActionType) override;
+    void update(World& world, GameObject& obj, double dt) override;
+
+    double elapsed {0.0};
+    double cooldown {0.0};
+};

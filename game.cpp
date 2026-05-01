@@ -2,25 +2,35 @@
 
 #include <iostream>
 
+#include "ai_input.h"
 #include "asset_manager.h"
 #include "input.h"
 #include "states.h"
 #include "keyboard_input.h"
+#include "NetworkInput.h"
+#include "random.h"
 
 Game::Game(std::string title, int width, int height)
     : graphics{title, width, height},camera{graphics,64}, dt{1.0/60.0}, lag{0.0}, performance_frequency{SDL_GetPerformanceFrequency()}, prev_counter{SDL_GetPerformanceCounter()} {
+
     //load events
     get_events();
     //load level
 
     //create player
     create_player();
+    create_network_player();
+    if (auto* net_input = dynamic_cast<NetworkInput*>(network_player->input)) { // for networks starts the server
+        net_input->start_server();
+    }
     AssetManager::get_game_object_details("player", graphics, *player);
+    AssetManager::get_game_object_details("network_player", graphics, *network_player);
 
     load_level("stay");
 }
 
 Game::~Game() {
+    // std::cout << "world deleted\n";
     delete world;
     for (auto [_,event]:events) {
         delete event;
@@ -42,16 +52,13 @@ void Game::handle_event(SDL_Event* event) {
 void Game::input() {
     switch (mode) {
         case GameMode::Playing:
-        player->input->get_input();
-        camera.handle_input();
-        break;
+            network_player->input->get_input();
+            player->input->get_input();
+            camera.handle_input();
+            break;
     }
 }
 
-void Game::network_input() {
-        network_player->input->handle_input(*world, *player);
-
-}
 
 void Game::update() {
     Uint64 now = SDL_GetPerformanceCounter();
@@ -60,31 +67,36 @@ void Game::update() {
     while (lag >= dt) {
         switch (mode) {
             case GameMode::Playing:
-            player->input->handle_input(*world, *player);
-            world->update(dt);
+                for (auto obj : world->game_objects) {
+                    obj->input->handle_input(*world, *obj);
+                }
+                world->update(dt);
 
-            //put camera slightly ahead of player
-            float L = length(player->physics.velocity);
-            Vec displacement = 8.0f * player->physics.velocity / (1.0f + L); // change first float for distance ahead
-            camera.update(player->physics.position + displacement, dt);
+                //put camera slightly ahead of player
+                float L = length(player->physics.velocity);
+                Vec displacement = 8.0f * player->physics.velocity / (1.0f + L); // change first float for distance ahead
+                camera.update(player->physics.position + displacement, dt);
 
-            if (world->end_level&&current_level!=2) {
-                load_level("next");
-            }
-            if (world->back_level && current_level!=0) {
-                load_level("previous");
-            }
-            if (world->treasure_level) {
-                load_level("treasure");
-            }
-            if (world->end_treasure_level) {
-                load_level("treasure_out");
-            }
-
+                if (world->end_level&&current_level!=2) {
+                    load_level("next");
+                }
+                if (world->back_level && current_level!=0) {
+                    load_level("previous");
+                }
+                if (world->treasure_level) {
+                    load_level("treasure");
+                }
+                if (world->end_treasure_level) {
+                    load_level("treasure_out");
+                }
+                if (world->win_game) {
+                    mode = GameMode::Win;
+                }
                 if (world->end_game) {
                     mode = GameMode::GameOver;
                 }
-            break;
+
+                break;
         }
         lag -= dt;
     }
@@ -94,6 +106,9 @@ void Game::update() {
 void Game::render() {
         //clear screen
         graphics.clear();
+
+        // draw the backgrounds
+        camera.render(world->backgrounds);
 
         //draw world
         camera.render(world->tilemap);
@@ -113,6 +128,9 @@ void Game::render() {
         if (mode == GameMode::GameOver) {
             camera.render_game_over();
         }
+        if (mode == GameMode::Win) {
+            camera.render_game_win();
+        }
 
         //update
         graphics.update();
@@ -127,6 +145,7 @@ void Game::get_events() {
         events["treasure_room_out"] = new OutTreasureRoom();
         events["spiked"] = new Spikes();
         events["in_water"] = new Water();
+        events["win"] = new Win();
 
 }
 
@@ -153,29 +172,37 @@ void Game::load_level(auto direction) {
 
     // create the world
     delete world;
-    world = new World(level, audio, player.get(), events);
+    world = new World(level, audio, player.get(), network_player.get(), events);
     //get available items
     AssetManager::get_available_items("items", graphics, *world);
     // assets for objs
     for (auto& obj : world->game_objects) {
-        if (obj == world->player) continue;
+        if (obj == world->player || obj == world->network_player) continue;
+        update_enemy(*obj);
         AssetManager::get_game_object_details(obj->obj_name + "-enemy", graphics, *obj, true);
     }
     if (direction == "previous") {
+        network_player->physics.position = {static_cast<float>(level.player_reverse_spawn_location.x), static_cast<float>(level.player_reverse_spawn_location.y)};
         player->physics.position = {static_cast<float>(level.player_reverse_spawn_location.x), static_cast<float>(level.player_reverse_spawn_location.y)};
     }
     else if (direction == "next") {
+        network_player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
         player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
     }
     else if (direction == "treasure_out") {
+        network_player->physics.position = {static_cast<float>(level.out_treasure_location.x), static_cast<float>(level.out_treasure_location.y)};
         player->physics.position = {static_cast<float>(level.out_treasure_location.x), static_cast<float>(level.out_treasure_location.y)};
     }
     else {
+        network_player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
         player->physics.position = {static_cast<float>(level.player_spawn_location.x), static_cast<float>(level.player_spawn_location.y)};
     }
     player->fsm->current_state->on_enter(*world,*player);
+    network_player->fsm->current_state->on_enter(*world, *network_player);
     camera.set_location(player->physics.position);
+
     audio.play_sound("background", true);
+
 }
 
 void Game::create_player() {
@@ -219,10 +246,90 @@ void Game::create_player() {
     FSM* fsm = new FSM(transitions, states, StateType::Standing);
 
     //player input
-    KeyboardInput* input = new KeyboardInput;
-
-    KeyboardInput* network_player_input = new KeyboardInput;
+    auto* input = new KeyboardInput;
 
     player = std::make_unique<GameObject>("player", fsm, input, Color{255,255,0,255});
-    network_player = std::make_unique<GameObject>("network_player", fsm, network_player_input, Color{255,0,0,255});
+}
+
+void Game::create_network_player() {
+    // Create FSM
+    Transitions transitions = {
+        // Standing to "Something"
+        {{StateType::Standing, Transition::Crouch}, StateType::Crouching},
+        {{StateType::Standing, Transition::Jump}, StateType::InAir},
+        {{StateType::Standing, Transition::Move}, StateType::Walking},
+        {{StateType::Standing, Transition::AttackAll}, StateType::AttackAll},
+        // Walking to "Something"
+        {{StateType::Walking, Transition::Stop}, StateType::Standing},
+        {{StateType::Walking, Transition::Crouch}, StateType::Crouching},
+        {{StateType::Walking, Transition::Jump}, StateType::InAir},
+        {{StateType::Walking, Transition::Dash}, StateType::Dashing},
+        // InAir to "Something"
+        {{StateType::InAir, Transition::Stop}, StateType::Standing},
+        {{StateType::InAir, Transition::Swing}, StateType::Swinging},
+        {{StateType::InAir, Transition::Dash}, StateType::Dashing},
+        // Swinging to "Something"
+        {{StateType::Swinging, Transition::Stop}, StateType::InAir},
+        {{StateType::Swinging, Transition::Dash}, StateType::Dashing},
+        // Dashing to "Something"
+        {{StateType::Dashing,Transition::Stop},StateType::Walking},
+        // Crouching to "Something"
+        {{StateType::Crouching, Transition::Stop}, StateType::Standing},
+        {{StateType::Crouching, Transition::Move}, StateType::Walking},
+        {{StateType::Crouching, Transition::Jump}, StateType::InAir},
+        // Attack to something
+        {{StateType::AttackAll, Transition::Stop}, StateType::Standing}
+    };
+    States states = {
+        {StateType::Standing, new Standing()},
+        {StateType::InAir, new InAir()},
+        {StateType::Walking, new Walking()},
+        {StateType::Dashing, new Dashing()},
+        {StateType::Crouching, new Crouching()},
+        {StateType::Swinging, new Swinging()},
+        {StateType::AttackAll, new AttackAllEnemies()},
+    };
+    FSM* network_fsm = new FSM(transitions, states, StateType::Standing);
+
+    //player input
+
+    auto* network_player_input = new NetworkInput;
+
+    network_player = std::make_unique<GameObject>("network_player", network_fsm, network_player_input, Color{255,0,0,255});
+}
+void Game::update_enemy(GameObject &obj) {
+    Transitions transitions;
+    States states;
+    if (obj.obj_name == "mummy" || obj.obj_name == "robot" || obj.obj_name == "fly" || obj.obj_name == "evillizard"|| obj.obj_name == "rock") {
+        transitions = {
+            {{StateType::Watching, Transition::Move}, StateType::Patrolling},
+            {{StateType::Patrolling, Transition::Stop}, StateType::Watching},
+            {{StateType::Patrolling, Transition::Jump}, StateType::InAir},
+            {{StateType::InAir, Transition::Stop}, StateType::Watching},
+            {{StateType::InAir, Transition::Swing}, StateType::Patrolling},
+
+        };
+        states = {
+            {StateType::Watching, new Watching()},
+            {StateType::Patrolling, new Patrolling()},
+            {StateType::InAir, new InAir()},
+
+        };
+    }
+
+    FSM* aifsm = new FSM(transitions, states, StateType::Watching);
+    obj.fsm = aifsm;
+
+    AiInput* input = new AiInput();
+    auto flip = randint(1,10);
+    if (flip >= 5) {
+        input->next_action_type = ActionType::MoveRight;
+        input->last_move = ActionType::MoveRight;
+    } else {
+       input->next_action_type = ActionType::MoveLeft;
+        input->last_move = ActionType::MoveLeft;
+    }
+
+    obj.input = input;
+
 }

@@ -7,7 +7,7 @@
 #include "events.h"
 
 
-enum class GameMode{Playing, GameOver};
+enum class GameMode{Playing, GameOver, Win};
 
 class Game {
 public:
@@ -38,13 +38,14 @@ private:
 
     //level help
     void create_player();
+    void create_network_player();
+    void update_enemy(GameObject& obj);
     int current_level{0};
     void load_level(auto direction);
 
-    //network
-    void network_input();
     // void network_update
 
 
     GameMode mode{GameMode::Playing};
+
 };

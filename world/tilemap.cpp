@@ -2,6 +2,23 @@
 #include <stdexcept>
 #include <sstream>
 
+void Tile::set_sprite(const std::string &next_sprite) {
+    if (next_sprite!=sprite_name) {
+        sprites[sprite_name].reset();
+
+        sprite_name = "idle";
+
+    }
+
+    sprite = sprites[sprite_name].get_sprite();
+}
+
+void Tile::update(double dt) {
+    if (sprite_name.empty()) return;
+    sprites[sprite_name].update(dt);
+    set_sprite(sprite_name);
+}
+
 Tilemap::Tilemap(int width, int height)
     : width{width}, height{height}, tiles(width*height) {
     if (width < 1) {

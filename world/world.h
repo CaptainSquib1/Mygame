@@ -21,7 +21,7 @@ class Event;
 
 class World {
 public:
-    World(const Level& level, Audio& audio, GameObject* player, Events events);
+    World(const Level& level, Audio& audio, GameObject* player, GameObject* network_player, Events events);
     ~World();
     void add_platform(float x, float y, float width, float height);
     void move_to(Vec<float>& position, const Vec<float>& size, Vec<float>& velocity);
@@ -37,6 +37,7 @@ public:
     bool end_treasure_level{false};
 
     bool end_game{false};
+    bool win_game{false};
 
 
     GameObject* player;
@@ -48,6 +49,8 @@ public:
 
     void touch_tiles(GameObject& obj);
     void build_quadtree();
+
+    std::vector<Background> backgrounds;
 
     QuadTree quadtree;
 

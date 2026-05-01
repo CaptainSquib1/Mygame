@@ -43,7 +43,6 @@ void Camera::update(const Vec<float> &new_location, float dt) {
     goal = new_location;
     physics.acceleration = (goal - location) * 10.0f;
 
-
     physics.velocity += 0.5f * physics.acceleration * dt;
     location += physics.velocity * dt;
 
@@ -71,13 +70,9 @@ void Camera::render(const Tilemap &tilemap) const {
     for (int y = ymin; y <= ymax; ++y) {
         for (int x = xmin; x <= xmax; ++x) {
             const Tile& tile = tilemap(x, y);
-            Vec<float> position{static_cast<float>(x), static_cast<float>(y)};
-            if (tile.blocking) {
-                render(position, tile.sprite);
-            }
-            else {
-                render(position, tile.sprite);
-            }
+            Vec<float> position = {static_cast<float>(x),static_cast<float>(y)};
+
+            render(position, tile.sprite, false);
             if (grid_toggle.on) {
                 render(position, {0, 255, 0, 255}, false);
             }
@@ -102,4 +97,16 @@ void Camera::render(const GameObject &obj) const {
 void Camera::render_game_over() {
     SDL_FRect full_screen{0.0f, 0.0f,static_cast<float>(graphics.width), static_cast<float>(graphics.height)};
     graphics.draw(full_screen, Color{0, 0, 0, 100}, true);
+}
+void Camera::render_game_win() {
+    SDL_FRect full_screen{0.0f, 0.0f,static_cast<float>(graphics.width), static_cast<float>(graphics.height)};
+    graphics.draw(full_screen, Color{0, 255, 0, 100}, true);
+}
+
+
+void Camera::render(const std::vector<Background>& backgrounds) const {
+    for (auto background : backgrounds) {
+        float shift = physics.position.x / background.distance;
+        graphics.draw_sprite({-shift, 0}, background.sprite);
+    }
 }

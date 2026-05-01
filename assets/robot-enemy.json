@@ -17,16 +17,26 @@
             "scale" : 4,
             "number_of_frames" : 4,
             "dt_per_frame" : 0.1
+        },
+        {
+            "name" : "jumping",
+            "filename" : "newlizardsprite.png",
+            "location" : [336, 32],
+            "size" : [16, 16],
+            "scale" : 4,
+            "number_of_frames" : 2,
+            "dt_per_frame" : 0.1
         }
     ],
     "physics" : {
-        "velocity": [0, 0],
-        "acceleration" : [0, -30],
-        "gravity": -30.0,
-        "damping": 0.9,
-        "walk_acceleration": 60.0,
-        "jump_velocity": 20.0,
-        "terminal_velocity": 30.0
+        "velocity" :[0,0],
+        "acceleration" : [0,-30],
+        "gravity" : -30.0,
+        "damping" : 0.9,
+        "walk_acceleration" : 40.0,
+        "jump_velocity" : 12.0,
+        "terminal_velocity" : 30.0,
+        "dashing_velocity" : 10.0
     },
     "size" : [1,1],
     "health" : 10,

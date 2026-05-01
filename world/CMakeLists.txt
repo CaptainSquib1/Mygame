@@ -17,6 +17,7 @@ add_library(world
         ../json.hpp
         quadtree.cpp quadtree.h
         projectile.cpp projectile.h
+        ai_input.cpp ai_input.h
 )
 
 target_include_directories(world PUBLIC

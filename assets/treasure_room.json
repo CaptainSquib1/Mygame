@@ -1,4 +1,58 @@
 {
+    "backgrounds" : [
+        {
+            "filename": "BG1.png",
+            "scale" : 1,
+            "distance": 4
+        },
+        {
+            "filename" : "BG2.png",
+            "scale" : 1,
+            "distance" : 2
+        },
+        {
+            "filename" : "BG3.png",
+            "scale" : 1,
+            "distance" : 1
+        }
+    ],
+    "sounds" : [
+        {
+            "name": "background",
+            "filename" : "brackeys_platformer_assets/music/time_for_adventure.mp3",
+            "loop_forever": true
+        },
+        {
+            "name": "jump",
+            "filename" : "brackeys_platformer_assets/sounds/jump.wav",
+            "loop_forever": false
+        },
+        {
+            "name": "knife",
+            "filename" : "brackeys_platformer_assets/sounds/tap.wav",
+            "loop_forever": false
+        },
+        {
+            "name": "hurt",
+            "filename" : "brackeys_platformer_assets/sounds/hurt.wav",
+            "loop_forever": false
+        },
+        {
+            "name": "explosion",
+            "filename" : "brackeys_platformer_assets/sounds/explosion.wav",
+            "loop_forever": false
+        },
+        {
+            "name": "coin",
+            "filename" : "brackeys_platformer_assets/sounds/coin.wav",
+            "loop_forever": false
+        },
+        {
+            "name": "power",
+            "filename" : "brackeys_platformer_assets/sounds/power_up.wav",
+            "loop_forever": false
+        }
+    ],
     "height": 15,
     "out_treasure_location": [
         5,

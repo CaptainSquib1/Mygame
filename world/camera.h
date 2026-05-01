@@ -22,7 +22,9 @@ public:
     void render(const Tilemap& tilemap) const;
     void render(const Vec<float>& position, const Sprite& sprite, bool flash=false)const;
     void render(const GameObject& obj) const;
+    void render(const std::vector<Background>& backgrounds) const;
     void render_game_over();
+    void render_game_win();
 
 private:
     Graphics& graphics;

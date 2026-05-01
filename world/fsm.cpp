@@ -1,10 +1,13 @@
 #include "fsm.h"
 
+#include <iostream>
+
 
 FSM::FSM(Transitions transitions, States states, StateType start)
     : transitions{transitions},states{states}, current_state_type{start}, current_state{states[current_state_type]} {}
 
 FSM::~FSM() {
+    // std::cout << "FSM::~FSM()";
     for (auto [_,state] : states) {
         delete state;
     }

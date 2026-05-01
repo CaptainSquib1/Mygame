@@ -52,6 +52,9 @@ Action *Standing::input(World& world, GameObject& obj, ActionType action_type) {
         obj.fsm->transition(Transition::Dash,world,obj);
         return new DashRight();
     }
+    if (action_type == ActionType::ThrowKnife) {
+        return new ThrowKnife();
+    }
     return nullptr;
 }
 // In Air
@@ -63,6 +66,17 @@ void InAir::on_enter(World &world, GameObject &obj) {
 
 void InAir::update(World &world, GameObject &obj, double dt) {
     elapsed -= dt;
+    if (elapsed <= 0 && (obj.obj_name != "player")){
+        auto flip = 0;
+        flip = randint(1,100);
+        if (flip <= 20) {
+            obj.fsm->transition(Transition::Stop, world, obj);
+        }
+        else {
+            obj.fsm->transition(Transition::Swing, world, obj);
+        }
+
+    }
     if (elapsed <= 0 && on_platform(world, obj)) {
         obj.fsm->transition(Transition::Stop, world, obj);
     }
@@ -98,6 +112,9 @@ Action *InAir::input(World &world, GameObject &obj, ActionType action_type) {
         obj.fsm->transition(Transition::Swing,world,obj);
         return new SwingRight();
     }
+    if (action_type == ActionType::ThrowKnife) {
+        return new ThrowKnife();
+    }
     return nullptr;
 }
 // Walking
@@ -125,6 +142,9 @@ Action* Walking::input(World& world, GameObject& obj, ActionType action_type) {
     if (action_type == ActionType::DashRight) {
         obj.fsm->transition(Transition::Dash,world,obj);
         return new DashRight();
+    }
+    if (action_type == ActionType::ThrowKnife) {
+        return new ThrowKnife();
     }
     return nullptr;
 }
@@ -200,13 +220,13 @@ void Crouching::on_exit(World &, GameObject &obj) {
 }
 //Attack All
 void AttackAllEnemies::on_enter(World &world, GameObject &obj) {
-    obj.set_sprite("attacking");
-    obj.color ={255,255,255,255};
-    for (auto& enemy: world.game_objects) {
-        if (enemy == world.player) continue;
-        enemy->take_damage(obj.damage);
-    }
-    elapsed = 0;
+    // obj.set_sprite("attacking");
+    // obj.color ={255,255,255,255};
+    // for (auto& enemy: world.game_objects) {
+    //     if (enemy == world.player /*|| enemy == world.network_player*/) continue;
+    //     enemy->take_damage(obj.damage);
+    // }
+    // elapsed = 0;
 }
 
 void AttackAllEnemies::update(World &world, GameObject &obj, double dt) {
@@ -222,19 +242,53 @@ void AttackAllEnemies::on_exit(World& , GameObject&) {
 void Patrolling::on_enter(World& world, GameObject& obj) {
     // set cooldown to a random amount of time 3-10sec
     elapsed = 0;
-    cooldown = randint(3,10);
+    cooldown = randint(4,20);
     Walking::on_enter(world, obj);
 
 }
 
 Action *Patrolling::input(World &world, GameObject &obj, ActionType action_type) {
     if (elapsed >= cooldown) {
-        return Walking::input(world, obj, ActionType::None);
+        obj.fsm->transition(Transition::Stop, world, obj);
+        return nullptr;
     }
-    return Walking::input(world, obj, action_type);
+    if (action_type == ActionType::Jump) {
+        obj.fsm->transition(Transition::Jump, world, obj);
+        return new Jump();
+    }
+    if (action_type == ActionType::MoveLeft) {
+        obj.flipped = true;
+        return new MoveLeft();
+    }
+    if (action_type == ActionType::MoveRight) {
+        obj.flipped = false;
+        return new MoveRight();
+    }
+    return nullptr;
 }
 
 void Patrolling::update(World &, GameObject &, double dt) {
+    elapsed += dt;
+}
+
+// Watching
+// TODO Watching Wrapper for Standing
+void Watching::on_enter(World& world, GameObject& obj) {
+    // set cooldown to a random amount of time 3-10sec
+    elapsed = 0;
+    cooldown = randint(2,5);
+    Standing::on_enter(world, obj);
+
+}
+Action* Watching::input(World &world, GameObject &obj, ActionType action_type) {
+    if (elapsed >= cooldown) {
+        obj.fsm->transition(Transition::Move, world, obj);
+        return nullptr;
+    }
+    return Standing::input(world, obj, ActionType::None);
+}
+
+void Watching::update(World &, GameObject &, double dt) {
     elapsed += dt;
 }
 

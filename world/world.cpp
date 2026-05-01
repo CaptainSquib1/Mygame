@@ -13,9 +13,9 @@
 #include "audio.h"
 #include "events.h"
 
-World::World(const Level& level, Audio& audio, GameObject* player, Events events)
+World::World(const Level& level, Audio& audio, GameObject* player, GameObject* network_player, Events events)
     : tilemap{level.width, level.height}, audio{&audio},
-        events{events}, player{player},
+        events{events}, player{player}, network_player{network_player},
         quadtree{AABB{{level.width / 2.0f, level.height/2.0f},
             {level.width / 2.0f, level.height/2.0f}}}
 {
@@ -24,7 +24,7 @@ World::World(const Level& level, Audio& audio, GameObject* player, Events events
 
 World::~World() {
     for (auto obj : game_objects) {
-        if (obj == player) continue;
+        if (obj == player || obj == network_player) continue;
         delete obj;
     }
 }
@@ -138,7 +138,10 @@ void World::update(double dt) {
 
         touch_tiles(*obj);
 
+    }
 
+    for (auto& tile : tilemap.tiles) {
+        tile.update(dt);
     }
 
     //update projectiles
@@ -150,35 +153,46 @@ void World::update(double dt) {
     build_quadtree();
     std::vector<GameObject*> collide_with = quadtree.query_range(player->get_bounding_box());
     for (auto& obj : collide_with) {
-        if (obj == player) continue;
-        player->take_damage(obj->damage);
+        if (obj == player || obj == network_player) continue;
+        if (player->invincible_time_remaining <= 0) {
+            player->take_damage(obj->damage);
+            audio->play_sound("hurt");
+        }
     }
 
     // check for collision with projectile and enemy
     for (auto& projectile: projectiles) {
         std::vector<GameObject*> p_collides_with = quadtree.query_range(projectile->get_bounding_box());
         for (auto& obj : p_collides_with) {
-            if (obj == player) continue;
+            if (obj == player || obj == network_player) continue;
+
             obj->take_damage(projectile->damage);
+            audio->play_sound("hurt");
             projectile->elapsed += projectile->lifetime;
         }
     }
 
-    // check for dead objects and remove them
-    auto itr = std::remove_if(std::begin(game_objects), std::end(game_objects),
-            [](GameObject* obj) {return !obj->is_alive;}
+    // std::partition puts objects that return TRUE at the beginning.
+    // So we flip the logic: Keep alive objects at the front.
+    auto itr = std::stable_partition(game_objects.begin(), game_objects.end(),
+        [](GameObject* obj) { return obj->is_alive; }
     );
-    game_objects.erase(itr, std::end(game_objects));
 
-    //check for old projectiles
-    auto p_itr = std::remove_if(std::begin(projectiles), std::end(projectiles),
-        [](Projectile* projectile){return projectile->elapsed >= projectile->lifetime;}
-        );
-    projectiles.erase(p_itr, std::end(projectiles));
+    // Now [itr, end) contains the original pointers to the dead objects
+    std::for_each(itr, game_objects.end(), [](GameObject* p) {delete p;});
+    game_objects.erase(itr, game_objects.end());
+
+    // same for projectiles
+    auto p_itr = std::stable_partition(projectiles.begin(), projectiles.end(),
+        [](Projectile* projectile) { return projectile->elapsed <= projectile->lifetime; }   );
+
+    std::for_each(p_itr, projectiles.end(), [](Projectile* p) { delete p; });
+    projectiles.erase(p_itr, projectiles.end());
 
 
     // check for player death
-    if (!player->is_alive) {
+    if (!player->is_alive || !network_player->is_alive) {
+        audio->play_sound("explosion");
         end_game = true;
         return;
     }
@@ -188,7 +202,11 @@ void World::load_level(const Level &level) {
     for (const auto& [pos, tile_id] : level.tile_locations) {
         tilemap(pos.x, pos.y) = level.tile_types.at(tile_id);
     }
-    audio->load_sounds({});
+    audio->load_sounds(level.sounds);
+
+    // get the backgrounds
+    backgrounds = level.backgrounds;
+
 
     //get all enemies
     for (const auto& [pos,enemy_name] : level.enemy_locations) {
@@ -197,6 +215,7 @@ void World::load_level(const Level &level) {
         game_objects.push_back(enemy);
     }
     game_objects.push_back(player);
+    game_objects.push_back(network_player);
 }
 
 void World::touch_tiles(GameObject &obj) {
@@ -206,11 +225,11 @@ void World::touch_tiles(GameObject &obj) {
     const std::vector<Vec<float>> displacements{{e,e}, //leftb
         {(obj.size.x), e}, //rightb
         {e, obj.size.y+e}, //leftt
-        {(obj.size.x), static_cast<float>(obj.size.y)}, //rightt
-        {e, static_cast<float>(obj.size.y)/2}, //leftm
-        {static_cast<float>(obj.size.x), static_cast<float>(obj.size.y)/2}, //rightm
-        {static_cast<float>(obj.size.x)/2, static_cast<float>(obj.size.y)}, //topm
-        {static_cast<float>(obj.size.x)/2, e},//btmm
+        {(obj.size.x), (obj.size.y)}, //rightt
+        {e, (obj.size.y)/2}, //leftm
+        {(obj.size.x), (obj.size.y)/2}, //rightm
+        {(obj.size.x)/2, (obj.size.y)}, //topm
+        {(obj.size.x)/2, e},//btmm
     };
     for (const auto& displacement : displacements) {
         Tile& tile = tilemap(x + displacement.x, y + displacement.y);

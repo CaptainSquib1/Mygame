@@ -45,3 +45,8 @@ class OutTreasureRoom : public Event {
 public:
     void perform(World &world, GameObject &obj) override;
 };
+
+class Win : public Event {
+    public:
+    void perform(World &world, GameObject &obj) override;
+};

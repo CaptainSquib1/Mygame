@@ -33,18 +33,20 @@ Audio::~Audio() {
     SDL_Quit();
 }
 
-void Audio::load_sounds(const std::unordered_map<std::string, std::string> sound_files) {
-    auto path = std::filesystem::current_path() / "assets" / "brackeys_platformer_assets" / "music" / "time_for_adventure.mp3";
-    std::ifstream input(path);
-    if (!input) {
-        throw std::runtime_error("Audio::load_sounds() could not open audio file" + path.string());
+void Audio::load_sounds(const std::vector<Sound>& sounds_to_load) {
+    for (auto sound : sounds_to_load) {
+        auto path = std::filesystem::current_path() / "assets" / sound.filename;
+        std::ifstream input{path};
+        if (!input) {
+            throw std::runtime_error("Could not open filename: " + path.string());
+        }
+        MIX_Audio* effect = MIX_LoadAudio(mixer, path.c_str(), sound.loop_forever);
+        if (!effect) {
+            std::string msg{SDL_GetError()};
+            throw std::runtime_error(msg + "\nUnable to load sound from " + path.string());
+        }
+        sounds[sound.name] = effect;
     }
-    MIX_Audio* effect = MIX_LoadAudio(mixer, path.c_str(), true);
-    if (!effect) {
-        std::string msg{SDL_GetError()};
-        throw std::runtime_error(msg +"\nUnable to load sound from: " + path.string());
-    }
-    sounds["background"] = effect;
 }
 
 void Audio::play_sound(const std::string &sound_name, bool loop_forever_in_background) {

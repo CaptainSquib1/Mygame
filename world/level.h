@@ -6,6 +6,8 @@
 #include <string>
 #include <map>
 
+#include "audio.h"
+
 using TileLocations = std::map<Vec<int>, std::string>;
 using EnemyLocations = std::map<Vec<float>, std::string>;
 
@@ -14,6 +16,8 @@ public:
     Level(std::string name);
 
     // data
+    std::vector<Sound> sounds;
+    std::vector<Background> backgrounds;
     std::string name;
     int width{0};
     int height{0};
