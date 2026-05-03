@@ -1,56 +1,19 @@
 {
-    "backgrounds" : [
+    "backgrounds": [
         {
+            "distance": 4.0,
             "filename": "BG1.png",
-            "scale" : 1,
-            "distance": 4
+            "scale": 1.0
         },
         {
-            "filename" : "BG2.png",
-            "scale" : 1,
-            "distance" : 2
+            "distance": 2.0,
+            "filename": "BG2.png",
+            "scale": 1.0
         },
         {
-            "filename" : "BG3.png",
-            "scale" : 1,
-            "distance" : 1
-        }
-    ],
-    "sounds" : [
-        {
-            "name": "background",
-            "filename" : "brackeys_platformer_assets/music/time_for_adventure.mp3",
-            "loop_forever": true
-        },
-        {
-            "name": "jump",
-            "filename" : "brackeys_platformer_assets/sounds/jump.wav",
-            "loop_forever": false
-        },
-        {
-            "name": "knife",
-            "filename" : "brackeys_platformer_assets/sounds/tap.wav",
-            "loop_forever": false
-        },
-        {
-            "name": "hurt",
-            "filename" : "brackeys_platformer_assets/sounds/hurt.wav",
-            "loop_forever": false
-        },
-        {
-            "name": "explosion",
-            "filename" : "brackeys_platformer_assets/sounds/explosion.wav",
-            "loop_forever": false
-        },
-        {
-            "name": "coin",
-            "filename" : "brackeys_platformer_assets/sounds/coin.wav",
-            "loop_forever": false
-        },
-        {
-            "name": "power",
-            "filename" : "brackeys_platformer_assets/sounds/power_up.wav",
-            "loop_forever": false
+            "distance": 1.0,
+            "filename": "BG3.png",
+            "scale": 1.0
         }
     ],
     "enemies": [
@@ -58,35 +21,35 @@
             "enemy": "evillizard",
             "pos": [
                 2.0,
-                6.0
+                11.0
             ]
         },
         {
             "enemy": "fly",
             "pos": [
-                3.0,
-                5.0
-            ]
-        },
-        {
-            "enemy": "mummy",
-            "pos": [
-                4.0,
-                6.0
-            ]
-        },
-        {
-            "enemy": "rock",
-            "pos": [
-                5.0,
-                5.0
+                6.0,
+                13.0
             ]
         },
         {
             "enemy": "robot",
             "pos": [
-                6.0,
-                6.0
+                7.0,
+                3.0
+            ]
+        },
+        {
+            "enemy": "mummy",
+            "pos": [
+                11.0,
+                11.0
+            ]
+        },
+        {
+            "enemy": "rock",
+            "pos": [
+                15.0,
+                4.0
             ]
         }
     ],
@@ -102,6 +65,43 @@
     "player_spawn_location": [
         3,
         1
+    ],
+    "sounds": [
+        {
+            "filename": "brackeys_platformer_assets/music/time_for_adventure.mp3",
+            "loop_forever": true,
+            "name": "background"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/jump.wav",
+            "loop_forever": false,
+            "name": "jump"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/tap.wav",
+            "loop_forever": false,
+            "name": "knife"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/hurt.wav",
+            "loop_forever": false,
+            "name": "hurt"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/explosion.wav",
+            "loop_forever": false,
+            "name": "explosion"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/coin.wav",
+            "loop_forever": false,
+            "name": "coin"
+        },
+        {
+            "filename": "brackeys_platformer_assets/sounds/power_up.wav",
+            "loop_forever": false,
+            "name": "power"
+        }
     ],
     "tile_filenames": [
         "nature-tiles.json"
@@ -392,7 +392,7 @@
                 2,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -497,7 +497,7 @@
                 3,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -826,7 +826,7 @@
                 6,
                 12
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -931,7 +931,7 @@
                 7,
                 12
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -1232,7 +1232,7 @@
                 10,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -1337,7 +1337,7 @@
                 11,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [

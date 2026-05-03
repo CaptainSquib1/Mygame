@@ -77,7 +77,7 @@ void Game::update() {
                 Vec displacement = 8.0f * player->physics.velocity / (1.0f + L); // change first float for distance ahead
                 camera.update(player->physics.position + displacement, dt);
 
-                if (world->end_level&&current_level!=2) {
+                if (world->end_level&&current_level!=3) {
                     load_level("next");
                 }
                 if (world->back_level && current_level!=0) {

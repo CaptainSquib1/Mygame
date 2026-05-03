@@ -22,11 +22,11 @@
         2
     ],
     "player_reverse_spawn_location": [
-        7,
-        5
+        4,
+        3
     ],
     "player_spawn_location": [
-        4,
+        2,
         1
     ],
     "sounds": [
@@ -712,7 +712,7 @@
                 6,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -817,7 +817,7 @@
                 7,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -922,7 +922,7 @@
                 8,
                 1
             ],
-            "tile": "nature-tiles.json:water"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -936,7 +936,7 @@
                 8,
                 3
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -1027,7 +1027,7 @@
                 9,
                 1
             ],
-            "tile": "nature-tiles.json:water"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1041,7 +1041,7 @@
                 9,
                 3
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -1132,7 +1132,7 @@
                 10,
                 1
             ],
-            "tile": "nature-tiles.json:water"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1160,7 +1160,7 @@
                 10,
                 5
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -1237,7 +1237,7 @@
                 11,
                 1
             ],
-            "tile": "nature-tiles.json:water"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1265,7 +1265,7 @@
                 11,
                 5
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -1342,7 +1342,7 @@
                 12,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1377,7 +1377,7 @@
                 12,
                 6
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -1447,7 +1447,7 @@
                 13,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1482,7 +1482,7 @@
                 13,
                 6
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -1552,7 +1552,7 @@
                 14,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1601,7 +1601,7 @@
                 14,
                 8
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -1657,7 +1657,7 @@
                 15,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1706,7 +1706,7 @@
                 15,
                 8
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -1762,7 +1762,7 @@
                 16,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1825,7 +1825,7 @@
                 16,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -1867,7 +1867,7 @@
                 17,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -1930,7 +1930,7 @@
                 17,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -1972,7 +1972,7 @@
                 18,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -2077,7 +2077,7 @@
                 19,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -2140,7 +2140,7 @@
                 19,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -2182,7 +2182,7 @@
                 20,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -2245,7 +2245,7 @@
                 20,
                 10
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -2287,7 +2287,7 @@
                 21,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -2329,7 +2329,7 @@
                 21,
                 7
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_left_end"
         },
         {
             "pos": [
@@ -2392,7 +2392,7 @@
                 22,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -2434,7 +2434,7 @@
                 22,
                 7
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:horizontal_right_end"
         },
         {
             "pos": [
@@ -2497,7 +2497,7 @@
                 23,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
@@ -2602,609 +2602,609 @@
                 24,
                 1
             ],
-            "tile": "nature-tiles.json:sand"
+            "tile": "nature-tiles.json:spike"
         },
         {
             "pos": [
                 24,
                 2
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                3
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                4
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                5
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                6
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                7
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                8
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                9
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                10
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                11
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                12
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                13
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                24,
+                14
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                25,
+                0
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                25,
+                1
+            ],
+            "tile": "nature-tiles.json:spike"
+        },
+        {
+            "pos": [
+                25,
+                2
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                3
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                4
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                5
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                6
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                7
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                8
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                9
+            ],
+            "tile": "nature-tiles.json:horizontal_left_end"
+        },
+        {
+            "pos": [
+                25,
+                10
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                11
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                12
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                13
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                25,
+                14
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                26,
+                0
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                26,
+                1
+            ],
+            "tile": "nature-tiles.json:spike"
+        },
+        {
+            "pos": [
+                26,
+                2
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                3
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                4
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                5
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                6
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                7
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                8
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                9
+            ],
+            "tile": "nature-tiles.json:horizontal_right_end"
+        },
+        {
+            "pos": [
+                26,
+                10
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                11
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                12
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                13
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                26,
+                14
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                27,
+                0
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                27,
+                1
+            ],
+            "tile": "nature-tiles.json:spike"
+        },
+        {
+            "pos": [
+                27,
+                2
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                3
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                4
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                5
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                6
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                7
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                8
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                9
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                10
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                11
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                12
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                13
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                27,
+                14
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                28,
+                0
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                28,
+                1
+            ],
+            "tile": "nature-tiles.json:spike"
+        },
+        {
+            "pos": [
+                28,
+                2
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                3
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                4
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                5
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                6
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                7
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                8
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                9
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                10
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                11
+            ],
+            "tile": "nature-tiles.json:horizontal_left_end"
+        },
+        {
+            "pos": [
+                28,
+                12
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                13
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                28,
+                14
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                29,
+                0
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                29,
+                1
+            ],
+            "tile": "nature-tiles.json:spike"
+        },
+        {
+            "pos": [
+                29,
+                2
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                3
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                4
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                5
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                6
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                7
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                8
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                9
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                10
+            ],
+            "tile": "nature-tiles.json:sand"
+        },
+        {
+            "pos": [
+                29,
+                11
+            ],
+            "tile": "nature-tiles.json:horizontal_brick"
+        },
+        {
+            "pos": [
+                29,
+                12
             ],
             "tile": "nature-tiles.json:win_tile"
-        },
-        {
-            "pos": [
-                24,
-                3
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                4
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                5
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                6
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                7
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                8
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                9
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                10
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                11
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                12
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                13
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                24,
-                14
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                25,
-                0
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                25,
-                1
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                2
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                3
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                4
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                5
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                6
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                7
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                8
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                9
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                10
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                11
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                12
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                13
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                25,
-                14
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                26,
-                0
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                26,
-                1
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                2
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                3
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                4
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                5
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                6
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                7
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                8
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                9
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                10
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                11
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                12
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                13
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                26,
-                14
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                27,
-                0
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                27,
-                1
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                2
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                3
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                4
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                5
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                6
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                7
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                8
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                9
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                10
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                11
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                12
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                13
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                27,
-                14
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                28,
-                0
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                28,
-                1
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                2
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                3
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                4
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                5
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                6
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                7
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                8
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                9
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                10
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                11
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                12
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                13
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                28,
-                14
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                29,
-                0
-            ],
-            "tile": "nature-tiles.json:horizontal_brick"
-        },
-        {
-            "pos": [
-                29,
-                1
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                2
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                3
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                4
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                5
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                6
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                7
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                8
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                9
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                10
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                11
-            ],
-            "tile": "nature-tiles.json:sand"
-        },
-        {
-            "pos": [
-                29,
-                12
-            ],
-            "tile": "nature-tiles.json:sand"
         },
         {
             "pos": [

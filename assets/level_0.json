@@ -1246,7 +1246,7 @@
                 11,
                 1
             ],
-            "tile": "nature-tiles.json:sky"
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [
@@ -1351,7 +1351,7 @@
                 12,
                 1
             ],
-            "tile": "nature-tiles.json:sky"
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [
@@ -1456,7 +1456,7 @@
                 13,
                 1
             ],
-            "tile": "nature-tiles.json:sky"
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [
@@ -1561,7 +1561,7 @@
                 14,
                 1
             ],
-            "tile": "nature-tiles.json:sky"
+            "tile": "nature-tiles.json:water"
         },
         {
             "pos": [
