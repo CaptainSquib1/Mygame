@@ -8,7 +8,6 @@ Vec - Creates Vec template
 GameObject - Creates GameObjects class and handles inputs
 Toggle - Handles toggled inputs
 
-^^^^ Need to Update ^^^^
 
 Assets in brackeys_platformer_assets folder were acquired via Itch.io under Creative Commons Zero (CC0). Specific License & Credits text file located within said folder.
 Other assets were custom made.
