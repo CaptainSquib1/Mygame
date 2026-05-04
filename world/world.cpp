@@ -177,7 +177,7 @@ void World::update(double dt) {
     auto itr = std::stable_partition(game_objects.begin(), game_objects.end(),
         [](GameObject* obj) { return obj->is_alive; }
     );
-
+    game_objects.erase(itr, game_objects.end());
     // Now [itr, end) contains the original pointers to the dead objects
     std::for_each(itr, game_objects.end(), [](GameObject* p) {delete p;});
     game_objects.erase(itr, game_objects.end());

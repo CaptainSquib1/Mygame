@@ -34,7 +34,8 @@ void Spikes::perform(World &world, GameObject &obj) {
 }
 
 void Water::perform(World &world, GameObject &obj) {
-    std::cout << "water\n";
+    obj.take_damage(20);
+    world.audio->play_sound("hurt");
 }
 void Win::perform(World &world, GameObject &) {
     world.audio->play_sound("coin");
